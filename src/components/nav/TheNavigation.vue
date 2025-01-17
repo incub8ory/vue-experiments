@@ -2,7 +2,7 @@
 	<header>
 		<nav>
 			<h1 class="mono">
-				<RouterLink to="{ name: 'home'}" @click="resetAllTabs">
+				<RouterLink to="/vue-experiments" @click="resetAllTabs">
 					Incub8ory
 				</RouterLink>
 			</h1>
