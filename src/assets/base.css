@@ -1,0 +1,218 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+	--vt-c-white: #ffffff;
+	--vt-c-white-soft: #f8f8f8;
+	--vt-c-white-muter: #f5f5f6;
+	--vt-c-white-mute: #f1f1f2;
+
+	--vt-c-black: #181818;
+	--vt-c-black-soft: #222222;
+	--vt-c-black-muter: #252525;
+	--vt-c-black-mute: #282828;
+
+	--vt-c-indigo: #2c3e50;
+
+	--vt-c-divider-light-0: rgba(0, 0, 0, 0.15);
+	--vt-c-divider-light-1: rgba(0, 0, 0, 0.24);
+	--vt-c-divider-light-2: rgba(0, 0, 0, 0.46);
+	--vt-c-divider-light-3: rgba(0, 0, 0, 0.58);
+	--vt-c-divider-light-4: rgba(0, 0, 0, 0.88);
+
+	--vt-c-divider-dark-0: rgba(255, 255, 255, 0.12);
+	--vt-c-divider-dark-1: rgba(255, 255, 255, 0.24);
+	--vt-c-divider-dark-2: rgba(255, 255, 255, 0.46);
+	--vt-c-divider-dark-3: rgba(255, 255, 255, 0.6);
+	--vt-c-divider-dark-4: rgba(255, 255, 255, 0.8);
+
+	--vt-c-text-light-1: var(--vt-c-indigo);
+	--vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+	--vt-c-text-light-3: rgba(60, 60, 60, 0.88);
+
+	--vt-c-text-dark-1: var(--vt-c-white);
+	--vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+	--vt-c-text-dark-3: rgba(235, 235, 235, 0.72);
+
+	/* added colors */
+	--color-red-light-1: #b30000;
+
+	--color-red-orange: #f63e2a;
+	--color-red-orange-light-1: #fae7e5;
+	--color-red-orange-dark-1: #4a130d;
+
+	--color-green: hsla(160, 100%, 37%, 0.84);
+	--color-green-hover: hsla(160, 100%, 37%, 0.68);
+	--color-button-green: hsla(83.69, 99.96%, 49.28%, 0.86);
+	--color-button-green-hover: hsla(83.69, 99.96%, 49.28%, 0.64);
+	--color-green-border: rgba(92, 155, 0, 0.4);
+	--color-green-border-hover: rgba(92, 155, 0, 0.6);
+	--color-button-label: var(--vt-c-black);
+	--color-aqua: #e2f2f2;
+
+	--color-chartreuse-0: rgba(229, 255, 195, 0.5);
+	--color-chartreuse-1: rgba(229, 255, 195, 1);
+	--color-chartreuse-2: rgba(152, 251, 0, 1);
+	--color-chartreuse-3: rgba(92, 155, 0, 1);
+	--color-chartreuse-4: rgba(73, 124, 0, 1);
+	--color-chartreuse-5: rgba(38, 69, 0, 1);
+
+	--color-gray-1: rgba(40, 40, 40, 0.2);
+	--color-gray-2: rgba(40, 40, 40, 0.4);
+	--color-gray-3: rgba(40, 40, 40, 0.6);
+	--color-gray-4: rgba(40, 40, 40, 0.8);
+
+	--color-gray-dark-1: rgba(242, 242, 242, 0.8);
+	--color-gray-dark-2: rgba(242, 242, 242, 0.6);
+	--color-gray-dark-3: rgba(242, 242, 242, 0.4);
+	--color-gray-dark-4: rgba(242, 242, 242, 0.2);
+}
+
+/* semantic color variables for this project */
+:root {
+	--color-background: var(--vt-c-white);
+	--color-background-soft: var(--vt-c-white-soft);
+	--color-background-mute: var(--vt-c-white-mute);
+	--color-background-muter: var(--vt-c-white-muter);
+
+	--color-border: var(--vt-c-divider-light-1);
+	--color-border-hover: var(--vt-c-divider-light-2);
+	--color-border-soft: var(--vt-c-divider-light-0);
+	--color-button-border: var(--vt-c-divider-light-1);
+	--color-button-border-hover: var(--vt-c-divider-light-2);
+
+	--color-heading: var(--vt-c-black);
+	--color-text: var(--vt-c-text-light-2);
+	--color-text-strong: var(--vt-c-text-light-3);
+
+	--color-danger: var(--color-red-orange);
+	--color-danger-text: var(--color-red-light-1);
+	--color-danger-border: var(--color-red-orange);
+	--color-danger-background: var(--color-red-orange-light-1);
+
+	--section-gap: 160px;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-background: var(--vt-c-black);
+		--color-background-soft: var(--vt-c-black-soft);
+		--color-background-mute: var(--vt-c-black-mute);
+		--color-background-muter: var(--vt-c-black-muter);
+		--color-border: var(--vt-c-divider-dark-2);
+		--color-border-hover: var(--vt-c-divider-dark-3);
+		--color-border-soft: var(--vt-c-divider-dark-1);
+		--color-button-border: var(--vt-c-divider-dark-1);
+		--color-button-border-hover: var(--vt-c-divider-dark-2);
+
+		--color-heading: var(--vt-c-text-dark-1);
+		--color-text: var(--vt-c-text-dark-2);
+		--color-text-strong: var(--vt-c-text-dark-3);
+
+		--color-danger-background: var(--color-red-orange-dark-1);
+		--color-danger-text: var(--color-red-orange);
+
+		--color-aqua: #2a383b;
+	}
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	font-weight: normal;
+}
+
+body {
+	min-height: 100vh;
+	color: var(--color-text);
+	background: var(--color-background);
+	transition: color 0.2s, background-color 0.5s;
+	line-height: 1.5;
+	font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+		'Segoe UI Emoji';
+	font-size: 15px;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+label {
+	display: block;
+	margin-bottom: 8px;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 16px;
+	color: var(--color-heading);
+}
+input,
+textarea,
+select {
+	color: var(--color-heading);
+	width: 100%;
+	border: 1px solid var(--color-border);
+	border-radius: 3px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
+		Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+	font-feature-settings: 'ss06', 'tnum' on, 'lnum' on, 'zero' on;
+	font-size: 14px;
+	line-height: 20px;
+	padding: 8px;
+	background-color: transparent;
+	outline: none;
+	box-shadow: none;
+}
+input:focus,
+input:active,
+textarea:focus,
+textarea:active,
+select:focus,
+select:active {
+	outline: none;
+}
+select {
+	appearance: none;
+	/* outline: none; */
+}
+
+select::-ms-expand {
+	display: none;
+}
+
+select {
+	padding-right: 40px;
+	background: url(../assets/icon-chevron-down.svg) right center no-repeat;
+}
+input[type='checkbox'],
+input[type='radio'] {
+	/* display: inline-block; */
+	width: auto;
+	margin-right: 8px;
+}
+
+input[type='checkbox'] + label,
+input[type='radio'] + label {
+	display: inline-block;
+	font-weight: normal;
+	line-height: 16px;
+	/* border: 1px solid #f00; */
+	margin: 2px;
+	color: var(--color-text);
+}
+
+input[type='checkbox'] + label:hover,
+input[type='radio'] + label:hover,
+.tag:has(:checked) input[type='radio'] + label {
+	cursor: pointer;
+	color: var(--color-heading);
+}
+
+.mono {
+	font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+		'Liberation Mono', monospace;
+}
+.japanese {
+	font-family: 'Mochiy Pop P One', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
