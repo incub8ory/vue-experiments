@@ -38,7 +38,7 @@ import VueXTutorial from '@/components/experimental/VueXTutorial.vue';
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
-		{ name: 'home', path: '/vue-experiments', component: HomeView, alias: '/' }, // home
+		{ name: 'home', path: '/vue-experiments', component: HomeView, alias: '/home' }, // home
 		{
 			name: 'teams',
 			path: '/teams',
