@@ -160,7 +160,7 @@ export default {
 			newTeaIndex: null,
 			componentKey: 0,
 			teaDataset: null,
-			baseURL: 'vue-experiments/',
+			// baseURL: '/vue-experiments/',
 		};
 	},
 	computed: {
