@@ -31,6 +31,8 @@ export default {
 				{ id: '02', routeName: 'tea', linkText: 'Tea Tasting' },
 				{ id: '03', routeName: 'vuex', linkText: 'VueX' },
 				{ id: '04', routeName: 'vuex-tutorial', linkText: 'VueX*' },
+				{ id: '05', routeName: 'photo-locator', linkText: 'Photo Locator' },
+				{ id: '06', routeName: 'stamp-collector', linkText: 'Eki Stamp Collector' },
 			],
 		};
 	},

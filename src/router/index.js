@@ -15,6 +15,8 @@ import VueX from '@/components/experimental/VueX.vue';
 import TeaTasting from '@/components/experimental/TeaTasting.vue';
 import TeaDetailsPage from '@/components/experimental/TeaDetailsPage.vue';
 import VueXTutorial from '@/components/experimental/VueXTutorial.vue';
+import PhotoLocationExtractor from '@/components/experimental/PhotoLocationExtractor.vue';
+import ExifPhotoViewer from '@/components/experimental/ExifPhotoViewer.vue';
 
 // const router = createRouter({
 //   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,7 +40,7 @@ import VueXTutorial from '@/components/experimental/VueXTutorial.vue';
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
-		{ name: 'home', path: '/vue-experiments', component: HomeView, alias: '/home' }, // home
+		{ name: 'home', path: '/home', component: HomeView, alias: '/' }, // home
 		{
 			name: 'teams',
 			path: '/teams',
@@ -100,6 +102,17 @@ const router = createRouter({
 			name: 'vuex-tutorial',
 			path: '/experimental/vuex-tutorial',
 			component: VueXTutorial,
+		},
+		{
+			name: 'photo-locator',
+			path: '/experimental/photo-locator',
+			component: PhotoLocationExtractor,
+		},
+		{
+			name: 'stamp-collector',
+			path: '/experimental/stamp-collector',
+			component: ExifPhotoViewer,
+			alias: '/experimental/stamp',
 		},
 		{ path: '/404', component: NotFound },
 		{ path: '/:notFound(.*)', redirect: '/404' }, // catch all route

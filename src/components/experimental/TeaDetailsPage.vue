@@ -107,7 +107,7 @@
 							</p>
 							<ul class="gallery">
 								<li v-for="image in this.teaDataset[this.teaIndex].imageFiles">
-									<img :src="`/vue-experiments/${image.url}`" :alt="image.alt" />
+									<img :src="`${image.url}`" :alt="image.alt" />
 								</li>
 							</ul>
 						</div>
@@ -115,27 +115,29 @@
 					<aside class="content-aside">
 						<span class="eyebrow mono">Product data</span>
 						<table>
-							<tr>
-								<th>Price</th>
-								<td>
-									{{ this.teaDataset[this.teaIndex].currency }}
-									{{ this.teaDataset[this.teaIndex].price.toFixed(2) }}
-								</td>
-							</tr>
-							<tr>
-								<th>Weight</th>
-								<td>
-									{{ this.teaDataset[this.teaIndex].weight }}
-								</td>
-							</tr>
-							<tr>
-								<th>Seller</th>
-								<td>{{ this.teaDataset[this.teaIndex].seller }}</td>
-							</tr>
-							<tr>
-								<th>Manufacturer</th>
-								<td>{{ this.teaDataset[this.teaIndex].manufacturer }}</td>
-							</tr>
+							<tbody>
+								<tr>
+									<th>Price</th>
+									<td>
+										{{ this.teaDataset[this.teaIndex].currency }}
+										{{ this.teaDataset[this.teaIndex].price.toFixed(2) }}
+									</td>
+								</tr>
+								<tr>
+									<th>Weight</th>
+									<td>
+										{{ this.teaDataset[this.teaIndex].weight }}
+									</td>
+								</tr>
+								<tr>
+									<th>Seller</th>
+									<td>{{ this.teaDataset[this.teaIndex].seller }}</td>
+								</tr>
+								<tr>
+									<th>Manufacturer</th>
+									<td>{{ this.teaDataset[this.teaIndex].manufacturer }}</td>
+								</tr>
+							</tbody>
 						</table>
 					</aside>
 				</div>
@@ -160,7 +162,6 @@ export default {
 			newTeaIndex: null,
 			componentKey: 0,
 			teaDataset: null,
-			// baseURL: '/vue-experiments/',
 		};
 	},
 	computed: {
@@ -185,9 +186,8 @@ export default {
 			let month = months[monthIndex];
 			let year = dateString.getFullYear();
 
-			console.log ('dateString: ' + dateString);
-			console.log ('month index: ' + monthIndex);
-			console.log('month: ' + month);
+			// console.log('dateString: ' + dateString);
+
 			return `${month} ${year}`;
 		},
 	},
@@ -208,7 +208,6 @@ export default {
 			this.teaIndex = this.teaDataset.findIndex((tea) => {
 				return tea.id === this.teaId;
 			});
-			
 		},
 		nextRoute() {
 			if (this.teaIndex === this.teaDataset.length - 1) {

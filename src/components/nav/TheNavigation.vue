@@ -2,7 +2,7 @@
 	<header>
 		<nav>
 			<h1 class="mono">
-				<RouterLink to="/vue-experiments" @click="resetAllTabs">
+				<RouterLink to="/" @click="resetAllTabs">
 					Incub8ory
 				</RouterLink>
 			</h1>
@@ -150,8 +150,10 @@ a {
 	border-radius: 3px;
 	cursor: pointer;
 	color: var(--color-text);
+	height: 48px;
 	padding: 8px 24px 16px;
-	display: inline-block;
+	display: flex;
+	gap: 0 8px;
 }
 h1 a {
 	padding: 0 0 12px 0;
