@@ -43,9 +43,9 @@ const router = createRouter({
 		// { name: 'home', path: '/home', component: HomeView, alias: '/' }, // home
 		{
 			name: 'home',
-			path: '/home',
+			path: '/vue-experiments',
 			component: HomeView,
-			alias: '/vue-experiments',
+			alias: '/',
 		},
 		{
 			name: 'teams',

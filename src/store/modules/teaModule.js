@@ -23,17 +23,17 @@ export default {
 					imageFiles: [
 						{
 							filename: '001-1.jpg',
-							url: '/vue-experiments/img/tea/001/001-1.jpg',
+							url: '/img/tea/001/001-1.jpg',
 							alt: 'Asatsuyu',
 						},
 						{
 							filename: '001-2.jpg',
-							url: '/vue-experiments/img/tea/001/001-2.jpg',
+							url: '/img/tea/001/001-2.jpg',
 							alt: 'Asatsuyu',
 						},
 						{
 							filename: '001-3.jpg',
-							url: '/vue-experiments/img/tea/001/001-3.jpg',
+							url: '/img/tea/001/001-3.jpg',
 							alt: 'Asatsuyu',
 						},
 					],
@@ -68,17 +68,17 @@ export default {
 					imageFiles: [
 						{
 							filename: '002-1.jpg',
-							url: '/vue-experiments/img/tea/002/002-1.jpg',
+							url: '/img/tea/002/002-1.jpg',
 							alt: '060 Yabukita Niyodogawa',
 						},
 						{
 							filename: '002-2.jpg',
-							url: '/vue-experiments/img/tea/002/002-2.jpg',
+							url: '/img/tea/002/002-2.jpg',
 							alt: '060 Yabukita Niyodogawa',
 						},
 						{
 							filename: '002-3.jpg',
-							url: '/vue-experiments/img/tea/002/002-3.jpg',
+							url: '/img/tea/002/002-3.jpg',
 							alt: '060 Yabukita Niyodogawa',
 						},
 						// {
@@ -118,17 +118,17 @@ export default {
 					imageFiles: [
 						{
 							filename: '003-1.jpg',
-							url: '/vue-experiments/img/tea/003/003-1.jpg',
+							url: '/img/tea/003/003-1.jpg',
 							alt: 'Satsukiyo Sencha',
 						},
 						{
 							filename: '003-2.jpg',
-							url: '/vue-experiments/img/tea/003/003-2.jpg',
+							url: '/img/tea/003/003-2.jpg',
 							alt: 'Satsukiyo Sencha',
 						},
 						{
 							filename: '003-3.jpg',
-							url: '/vue-experiments/img/tea/003/003-3.jpg',
+							url: '/img/tea/003/003-3.jpg',
 							alt: 'Satsukiyo Sencha',
 						},
 					],
@@ -163,17 +163,17 @@ export default {
 					imageFiles: [
 						{
 							filename: '004-1.jpg',
-							url: '/vue-experiments/img/tea/004/004-1.jpg',
+							url: '/img/tea/004/004-1.jpg',
 							alt: 'Yame Sencha AY-10A',
 						},
 						{
 							filename: '004-2.jpg',
-							url: '/vue-experiments/img/tea/004/004-2.jpg',
+							url: '/img/tea/004/004-2.jpg',
 							alt: 'Yame Sencha AY-10A',
 						},
 						{
 							filename: '004-3.jpg',
-							url: '/vue-experiments/img/tea/004/004-3.jpg',
+							url: '/img/tea/004/004-3.jpg',
 							alt: 'Yame Sencha AY-10A',
 						},
 					],
@@ -208,7 +208,7 @@ export default {
 					imageFiles: [
 						{
 							filename: '005-1.jpg',
-							url: '/vue-experiments/img/tea/005/005-1.jpg',
+							url: '/img/tea/005/005-1.jpg',
 							alt: 'Gyokuro Saemidori',
 						},
 					],
@@ -243,17 +243,17 @@ export default {
 					imageFiles: [
 						{
 							filename: '006-1.jpg',
-							url: '/vue-experiments/img/tea/006/006-1.jpg',
+							url: '/img/tea/006/006-1.jpg',
 							alt: 'Saemidori Kabuse',
 						},
 						{
 							filename: '006-2.jpg',
-							url: '/vue-experiments/img/tea/006/006-2.jpg',
+							url: '/img/tea/006/006-2.jpg',
 							alt: 'Saemidori Kabuse',
 						},
 						{
 							filename: '006-3.jpg',
-							url: '/vue-experiments/img/tea/006/006-3.jpg',
+							url: '/img/tea/006/006-3.jpg',
 							alt: 'Saemidori Kabuse',
 						},
 					],
@@ -288,17 +288,17 @@ export default {
 					imageFiles: [
 						{
 							filename: '007-1.jpg',
-							url: '/vue-experiments/img/tea/007/007-1.jpg',
+							url: '/img/tea/007/007-1.jpg',
 							alt: '038 Yamano Ibuki',
 						},
 						{
 							filename: '007-2.jpg',
-							url: '/vue-experiments/img/tea/007/007-2.jpg',
+							url: '/img/tea/007/007-2.jpg',
 							alt: 'Yamano Ibuki',
 						},
 						{
 							filename: '007-3.jpg',
-							url: '/vue-experiments/img/tea/007/007-3.jpg',
+							url: '/img/tea/007/007-3.jpg',
 							alt: 'Yamano Ibuki',
 						},
 					],
@@ -333,17 +333,17 @@ export default {
 					imageFiles: [
 						{
 							filename: '008-1.jpg',
-							url: '/vue-experiments/img/tea/008/008-1.jpg',
+							url: '/img/tea/008/008-1.jpg',
 							alt: '044 Uji Midori',
 						},
 						{
 							filename: '008-2.jpg',
-							url: '/vue-experiments/img/tea/008/008-2.jpg',
+							url: '/img/tea/008/008-2.jpg',
 							alt: '044 Uji Midori',
 						},
 						{
 							filename: '008-3.jpg',
-							url: '/vue-experiments/img/tea/008/008-3.jpg',
+							url: '/img/tea/008/008-3.jpg',
 							alt: '044 Uji Midori',
 						},
 					],
@@ -378,17 +378,17 @@ export default {
 					imageFiles: [
 						{
 							filename: '009-1.jpg',
-							url: '/vue-experiments/img/tea/009/009-1.jpg',
+							url: '/img/tea/009/009-1.jpg',
 							alt: 'Strawberry Tea',
 						},
 						{
 							filename: '009-2.jpg',
-							url: '/vue-experiments/img/tea/009/009-2.jpg',
+							url: '/img/tea/009/009-2.jpg',
 							alt: 'Strawberry Tea',
 						},
 						{
 							filename: '009-3.jpg',
-							url: '/vue-experiments/img/tea/009/009-3.jpg',
+							url: '/img/tea/009/009-3.jpg',
 							alt: 'Strawberry Tea',
 						},
 					],
@@ -424,17 +424,17 @@ export default {
 					imageFiles: [
 						{
 							filename: '010-1.jpg',
-							url: '/vue-experiments/img/tea/010/010-1.jpg',
+							url: '/img/tea/010/010-1.jpg',
 							alt: 'Cherry Leaf (Sakura) Sencha',
 						},
 						{
 							filename: '010-2.jpg',
-							url: '/vue-experiments/img/tea/010/010-2.jpg',
+							url: '/img/tea/010/010-2.jpg',
 							alt: 'Cherry Leaf (Sakura) Sencha',
 						},
 						{
 							filename: '010-3.jpg',
-							url: '/vue-experiments/img/tea/010/010-3.jpg',
+							url: '/img/tea/010/010-3.jpg',
 							alt: 'Cherry Leaf (Sakura) Sencha',
 						},
 					],

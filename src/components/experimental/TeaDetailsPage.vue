@@ -107,7 +107,7 @@
 							</p>
 							<ul class="gallery">
 								<li v-for="image in this.teaDataset[this.teaIndex].imageFiles">
-									<img :src="`${image.url}`" :alt="image.alt" />
+									<img :src="`/vue-experiments${image.url}`" :alt="image.alt" />
 								</li>
 							</ul>
 						</div>

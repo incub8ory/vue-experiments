@@ -2,7 +2,7 @@
 	<header>
 		<nav>
 			<h1 class="mono">
-				<RouterLink to="/" @click="resetAllTabs">
+				<RouterLink to="/vue-experiments" @click="resetAllTabs">
 					Incub8ory
 				</RouterLink>
 			</h1>
