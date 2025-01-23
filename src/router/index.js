@@ -40,7 +40,13 @@ import ExifPhotoViewer from '@/components/experimental/ExifPhotoViewer.vue';
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
-		{ name: 'home', path: '/home', component: HomeView, alias: '/' }, // home
+		// { name: 'home', path: '/home', component: HomeView, alias: '/' }, // home
+		{
+			name: 'home',
+			path: '/home',
+			component: HomeView,
+			alias: '/vue-experiments',
+		},
 		{
 			name: 'teams',
 			path: '/teams',
