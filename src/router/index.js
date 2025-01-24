@@ -49,19 +49,19 @@ const router = createRouter({
 		},
 		{
 			name: 'teams',
-			path: '/teams',
+			path: '/vue-experiments/teams',
 			meta: { needsAuth: true },
 			// component: TeamsList
 			components: { default: TeamsList, footer: TeamsFooter },
 		},
 		{
 			name: 'team-members',
-			path: '/teams/:teamId',
+			path: '/vue-experiments/teams/:teamId',
 			component: TeamMembers,
 			props: true,
 		},
 		{
-			path: '/members',
+			path: '/vue-experiments/members',
 			// component: UsersList
 			components: { default: UsersList, footer: MembersFooter },
 			beforeEnter(to, from, next) {
@@ -73,13 +73,13 @@ const router = createRouter({
 		}, // dynamic route with dynamic parameter
 		{
 			name: 'new',
-			path: '/vocabulary/new',
+			path: '/vue-experiments/vocabulary/new',
 			component: NewResource,
 			props: true,
 		},
 		{
 			name: 'experimental',
-			path: '/experimental/',
+			path: '/vue-experiments/experimental/',
 			component: TheExperiments,
 			alias: '/experimental/home',
 		},

@@ -9,7 +9,7 @@
 			<li v-for="image in images" :key="image.id" class="image-container">
 				<span class="eyebrow mono">{{ image.date }}</span>
 				<h3>{{ image.title }}</h3>
-				<img :src="image.src" alt="Photo" class="photo" />
+				<img :src="this.baseURL + image.src" alt="Photo" class="photo" />
 				<div v-if="image.location">
 					<p><strong>Latitude:</strong> {{ image.location.latitude }}</p>
 					<p><strong>Longitude:</strong> {{ image.location.longitude }}</p>
@@ -27,26 +27,27 @@ import EXIF from 'exif-js';
 export default {
 	data() {
 		return {
+			baseURL: '/vue-experiments',
 			images: [
 				{ 
 					id: '000', 
 					title: 'Momo Bao', 
-					src: '/vue-experiments/img/stamp/000.jpeg' 
+					src: '/img/stamp/000.jpeg' 
 				},
 				{ 
 					id: '001', 
 					title: 'Ichiran Ramen', 
-					src: '/vue-experiments/img/stamp/001.jpeg' 
+					src: '/img/stamp/001.jpeg' 
 				},
 				{ 
 					id: '002', 
 					title: 'JR Fruit Park', 
-					src: '/vue-experiments/img/stamp/002.jpeg' 
+					src: '/img/stamp/002.jpeg' 
 				},
 				{ 
 					id: '004', 
 					title: 'Street Food Park', 
-					src: '/vue-experiments/img/stamp/004.jpeg' 
+					src: '/img/stamp/004.jpeg' 
 				},
 				// Add more images here
 			],
@@ -54,13 +55,13 @@ export default {
 	},
 	mounted() {
 		this.images.forEach((image) => {
-			this.extractLocationData(image.src);
+			this.extractLocationData(this.baseURL + image.src);
 		});
 	},
 	methods: {
 		// Extract EXIF data and location from image
 		extractLocationData(imageSrc) {
-			const image = this.images.find((img) => img.src === imageSrc);
+			const image = this.images.find((img) => this.baseURL + img.src === imageSrc);
 			const imgElement = new Image();
 
 			imgElement.onload = () => {

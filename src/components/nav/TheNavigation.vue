@@ -9,7 +9,7 @@
 			<ul>
 				<li>
 					<RouterLink
-						to="/teams"
+						to="/vue-experiments/teams"
 						@click="setActivePage(tabNames[0])"
 						:class="{ active: tabAIsActive }"
 					>
@@ -30,7 +30,7 @@
 				</li>
 				<li>
 					<RouterLink
-						to="/members"
+						to="/vue-experiments/members"
 						@click="setActivePage(tabNames[1])"
 						:class="{ active: tabBIsActive }"
 					>
@@ -58,7 +58,7 @@
 				</li>
 				<li>
 					<RouterLink
-						to="/experimental/"
+						to="/vue-experiments/experimental/"
 						@click="setActivePage(tabNames[2])"
 						:class="{ active: tabCIsActive }"
 					>
