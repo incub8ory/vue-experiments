@@ -155,6 +155,7 @@ export default {
 	},
 	data() {
 		return {
+			baseURL: '/vue-experiments',
 			teaName: '',
 			teaIndex: null,
 			notFound: false,
@@ -216,7 +217,7 @@ export default {
 				this.teaIndex++;
 			}
 			this.teaId = this.teaDataset[this.teaIndex].id;
-			this.$router.push('/tea/' + this.teaId);
+			this.$router.push(this.baseURL + '/tea/' + this.teaId);
 		},
 		previousRoute() {
 			if (this.teaIndex === 0) {
@@ -225,7 +226,7 @@ export default {
 				this.teaIndex--;
 			}
 			this.teaId = this.teaDataset[this.teaIndex].id;
-			this.$router.push('/tea/' + this.teaId);
+			this.$router.push(this.baseURL + '/tea/' + this.teaId);
 		},
 		addKeyEventHandlers() {
 			window.addEventListener('keydown', this.keyDownHandler);
@@ -321,7 +322,7 @@ nav ul li:hover svg line {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: 0 4px;
+	gap: 4px;
 
 	li {
 		padding: 0;

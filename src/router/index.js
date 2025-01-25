@@ -85,40 +85,40 @@ const router = createRouter({
 		},
 		{
 			name: 'list',
-			path: '/experimental/list',
+			path: '/vue-experiments/experimental/list',
 			component: ShoppingList,
 		},
 		{
 			name: 'tea',
-			path: '/experimental/tea',
+			path: '/vue-experiments/experimental/tea',
 			component: TeaTasting,
 		},
 		{
 			name: 'tea-details',
-			path: '/tea/:teaId',
+			path: '/vue-experiments/tea/:teaId',
 			component: TeaDetailsPage,
 			props: true,
 		},
 		{
 			name: 'vuex',
-			path: '/experimental/vuex',
+			path: '/vue-experiments/experimental/vuex',
 			component: VueX,
 		},
 		{
 			name: 'vuex-tutorial',
-			path: '/experimental/vuex-tutorial',
+			path: '/vue-experiments/experimental/vuex-tutorial',
 			component: VueXTutorial,
 		},
 		{
 			name: 'photo-locator',
-			path: '/experimental/photo-locator',
+			path: '/vue-experiments/experimental/photo-locator',
 			component: PhotoLocationExtractor,
 		},
 		{
 			name: 'stamp-collector',
-			path: '/experimental/stamp-collector',
+			path: '/vue-experiments/experimental/stamp-collector',
 			component: ExifPhotoViewer,
-			alias: '/experimental/stamp',
+			alias: '/stamp',
 		},
 		{ path: '/404', component: NotFound },
 		{ path: '/:notFound(.*)', redirect: '/404' }, // catch all route

@@ -9,7 +9,7 @@
 				v-for="experiment in labExperiments.slice().reverse()"
 				:key="experiment.id"
 			>
-				<router-link :to="'/experimental/' + experiment.routeName">
+				<router-link :to="this.baseURL + '/experimental/' + experiment.routeName">
 					<span>{{ experiment.id }}</span>
 					<span>{{ experiment.linkText }}</span>
 					<span>&rarr;</span>
@@ -26,6 +26,7 @@ export default {
 	},
 	data() {
 		return {
+			baseURL: '/vue-experiments',
 			labExperiments: [
 				{ id: '01', routeName: 'list', linkText: 'Shopping List' },
 				{ id: '02', routeName: 'tea', linkText: 'Tea Tasting' },
