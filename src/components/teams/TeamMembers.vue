@@ -3,11 +3,11 @@
 
 <template>
 	<SubNav class="mono"
-		><router-link to="/teams">Teams</router-link> / {{ teamName }}</SubNav
+		><router-link :to="{name: 'teams'}">Teams</router-link> / {{ teamName }}</SubNav
 	>
 	<section>
 		<h2>{{ teamName }}</h2>
-		<p v-if='notFound'>We couldn&rsquo;t find a team with the ID {{ enteredId }}. <router-link to="/teams">Browse all teams</router-link> to find if this team exists.</p>
+		<p v-if='notFound'>We couldn&rsquo;t find a team with the ID {{ enteredId }}. Try browsing through <router-link :to="{name: 'teams'}">all teams</router-link>.</p>
 		<ul>
 			<user-item
 				v-for="member in members"
