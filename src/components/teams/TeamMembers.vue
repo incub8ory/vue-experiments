@@ -3,11 +3,15 @@
 
 <template>
 	<SubNav class="mono"
-		><router-link :to="{name: 'teams'}">Teams</router-link> / {{ teamName }}</SubNav
+		><router-link :to="{ name: 'teams' }">Teams</router-link> /
+		{{ teamName }}</SubNav
 	>
 	<section>
 		<h2>{{ teamName }}</h2>
-		<p v-if='notFound'>We couldn&rsquo;t find a team with the ID {{ enteredId }}. Try browsing through <router-link :to="{name: 'teams'}">all teams</router-link>.</p>
+		<p v-if="notFound">
+			We couldn&rsquo;t find a team with the ID {{ enteredId }}. Try browsing
+			through <router-link :to="{ name: 'teams' }">all teams</router-link>.
+		</p>
 		<ul>
 			<user-item
 				v-for="member in members"
@@ -49,7 +53,7 @@ export default {
 			const selectedTeam = this.teams.find((team) => team.id === teamId);
 
 			if (!selectedTeam) {
-				this.teamName =  'Team ID: ' + teamId.toUpperCase() + ' not found';
+				this.teamName = 'Team ID: ' + teamId.toUpperCase() + ' not found';
 				this.notFound = true;
 				this.enteredId = teamId.toUpperCase();
 			} else {

@@ -195,14 +195,16 @@ ul {
 	list-style: none;
 	padding: 24px 0 160px 0;
 	margin: 0;
-	gap: 24px 48px;
+	gap: 24px 40px;
 	flex-wrap: wrap;
+	/* border: 1px solid #f00; */
+	width:  calc(100vw - 80px);
 	/* justify-content: space-between; */
 }
 ul li {
 	padding: 0;
 	margin: 0;
-	width: calc(33% - 28px);
+	width: calc(33.3vw - 64px);
 	/* min-width: 280px; */
 }
 ul li:hover {
