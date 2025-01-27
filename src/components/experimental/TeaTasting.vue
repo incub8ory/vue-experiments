@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="main-container">
 		<!-- <router-link :to="{ name: 'experimental' }"
 			>&larr; Back to Lab experiments</router-link
 		> -->
@@ -31,7 +31,9 @@
 			>
 				<span class="eyebrow mono">{{ tea.seller }}</span>
 				<h3>
-					<router-link :to="this.baseURL + '/tea/' + tea.id"> {{ tea.name }}</router-link>
+					<router-link :to="this.baseURL + '/tea/' + tea.id">
+						{{ tea.name }}</router-link
+					>
 				</h3>
 				<SpiderChart :teaIndex="index"></SpiderChart>
 			</li>
@@ -217,7 +219,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.main-container {
 	padding: 40px;
 }
 h2 {
@@ -292,6 +294,7 @@ ul {
 	margin: 0;
 	gap: 24px 12px;
 	flex-wrap: wrap;
+	width: calc(100vw - 80px);
 	/* justify-content: space-between; */
 }
 ul li {

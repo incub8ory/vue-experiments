@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="main-container">
 		<h2>Lab</h2>
 		<p class="lede">
 			Test playground for experiments and other half-baked projects
@@ -40,7 +40,7 @@ export default {
 };
 </script>
 <style scoped>
-.container {
+.main-container {
 	padding: 40px;
 }
 h2 {

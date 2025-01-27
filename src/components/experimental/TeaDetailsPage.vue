@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="main-container">
 		<header>
 			<p class="mono">
 				<RouterLink :to="{ name: 'tea' }">Tea Tasting</RouterLink>
@@ -271,7 +271,7 @@ export default {
 		margin: 0 auto;
 	}
 }
-.container {
+.main-container {
 	padding: 40px 40px 160px 40px;
 }
 header > p.mono a {

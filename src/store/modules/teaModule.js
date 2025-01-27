@@ -454,8 +454,44 @@ export default {
 					],
 				},
 
+				{
+					id: '011',
+					name: 'Fukamushi Sencha',
+					seller: 'Kimikura',
+					manufacturer: 'Senchado Tokyo',
+					dateSampled: '2025-01-26',
+					description:
+						'Kakegawa deep-steamed green tea grown in Kakegawa, Shizuoka, Japan.',
+					notes:
+						'The tea has a dull, grey-green color and consists of small, chopped-up bits with a few whole leaves. Has a dominant roasted aroma reminiscent of hojicha but more astringent. Requires longer infusion time (2-3 minutes). Flavor is fairly bitter with a soft seaweed finish. Flavor profile lacks depth and balance overall with the rather astringent quality dominating the taste.',
+					price: 19.9,
+					currency: '$',
+					weight: '200 grams',
+					imageFiles: [
+						{
+							filename: '011-1.jpg',
+							url: '/img/tea/011/011-1.jpg',
+							alt: 'Fukamushi Sencha',
+						},
+					],
+					chartData: [
+						{ label: 'Sweetness', value: 1 },
+						{ label: 'Grain', value: 3 },
+						{ label: 'Seaweed', value: 2 },
+						{ label: 'Umami', value: 1 },
+						{ label: 'Full-Bodied', value: 3 },
+						{ label: 'Roasting', value: 4 },
+						{ label: 'Bitterness', value: 4 },
+						{ label: 'Fruit', value: 1 },
+						{ label: 'Flower', value: 0 },
+						{ label: 'Fragrance', value: 1 },
+						{ label: 'Earthiness', value: 2 },
+						{ label: 'Grassiness', value: 0 },
+					],
+				},
+
 				// {
-				// 	id: '011',
+				// 	id: '012',
 				// 	name: '',
 				// 	seller: 'Senchado Tokyo',
 				// 	manufacturer: 'Senchado Tokyo',
@@ -467,13 +503,13 @@ export default {
 				// 	weight: '',
 				// 	imageFiles: [
 				// 		{
-				// 			filename: '011-1.jpg',
-				// 			url: '/img/tea/011/011-1.jpg',
+				// 			filename: '012-1.jpg',
+				// 			url: '/img/tea/012/012-1.jpg',
 				// 			alt: '',
 				// 		},
 				// 		{
-				// 			filename: '011-2.jpg',
-				// 			url: '/img/tea/011/011-2.jpg',
+				// 			filename: '012-2.jpg',
+				// 			url: '/img/tea/012/012-2.jpg',
 				// 			alt: '',
 				// 		},
 				// 	],
@@ -497,7 +533,7 @@ export default {
 	},
 	getters: {
 		teaDataStore(state) {
-			// this.$store.getters.teaDataStore			
+			// this.$store.getters.teaDataStore
 			return state.teaData;
 		},
 	},

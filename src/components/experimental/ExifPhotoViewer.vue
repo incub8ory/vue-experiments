@@ -1,5 +1,5 @@
 <template>
-	<div class="container" id="stamp-collector">
+	<div class="main-container" id="stamp-collector">
 		<h2>Eki Stamps</h2>
 		<p class="lede">
 			Collection of {{ this.images.length }} stamps (駅スタンプ) taken at train
@@ -164,7 +164,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.main-container {
 	padding: 40px;
 }
 h2 {
