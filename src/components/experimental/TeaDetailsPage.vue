@@ -293,7 +293,6 @@ header h2 {
 	font-weight: 800;
 	letter-spacing: -0.02em;
 	line-height: 1;
-	/* padding-bottom: 16px; */
 }
 nav {
 	margin-bottom: 24px;

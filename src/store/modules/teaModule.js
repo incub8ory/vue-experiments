@@ -81,11 +81,6 @@ export default {
 							url: '/img/tea/002/002-3.jpg',
 							alt: '060 Yabukita Niyodogawa',
 						},
-						// {
-						// 	filename: '002-4.png',
-						// 	url: '/img/tea/002/002-4.png',
-						// 	alt: '060 Yabukita Niyodogawa',
-						// },
 					],
 					chartData: [
 						{ label: 'Sweetness', value: 4 },
