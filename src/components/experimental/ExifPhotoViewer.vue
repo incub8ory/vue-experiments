@@ -5,49 +5,59 @@
 			Collection of {{ this.images.length }} stamps (駅スタンプ) taken at train
 			stations and other locations in Japan
 		</p>
-		<ul>
-			<li v-for="image in images" :key="image.id" class="image-container">
-				<span class="eyebrow mono">{{ image.date }}</span>
-				<h3>{{ image.title }}</h3>
-				<img :src="this.baseURL + image.src" alt="Photo" class="photo" />
-				<div v-if="image.location">
-					<p><strong>Latitude:</strong> {{ image.location.latitude }}</p>
-					<p><strong>Longitude:</strong> {{ image.location.longitude }}</p>
-					<p><strong>Address:</strong> {{ image.location.address }}</p>
+		<ol class="bg-stone-200">
+			<li v-for="image in images" :key="image.id">
+				<div class="card bg-gray-50">
+					<img :src="this.baseURL + image.src" alt="Photo" class="photo" />
+					<article>
+						<div class="content-main text-slate-900">
+							<span class="eyebrow mono">{{ image.date }}</span>
+							<h3>{{ image.title }}</h3>
+							<p v-if="image.location">
+								{{ image.location.address }}
+							</p>
+						</div>
+
+						<div v-if="image.location" class="footnote font-mono uppercase">
+							<p class="text-slate-400">Lat: {{ image.location.latitude }}</p>
+							<p class="text-slate-400">Long: {{ image.location.longitude }}</p>
+						</div>
+					</article>
 				</div>
 			</li>
-		</ul>
+		</ol>
 	</div>
 </template>
 
 <script>
 import EXIF from 'exif-js';
 // import axios from 'axios';
+// import AOS from 'aos';
 
 export default {
 	data() {
 		return {
 			baseURL: '/vue-experiments',
 			images: [
-				{ 
-					id: '000', 
-					title: 'Momo Bao', 
-					src: '/img/stamp/000.jpeg' 
+				{
+					id: '000',
+					title: 'Momo Bao',
+					src: '/img/stamp/000.jpeg',
 				},
-				{ 
-					id: '001', 
-					title: 'Ichiran Ramen', 
-					src: '/img/stamp/001.jpeg' 
+				{
+					id: '001',
+					title: 'Ichiran Ramen',
+					src: '/img/stamp/001.jpeg',
 				},
-				{ 
-					id: '002', 
-					title: 'JR Fruit Park', 
-					src: '/img/stamp/002.jpeg' 
+				{
+					id: '002',
+					title: 'JR Fruit Park',
+					src: '/img/stamp/002.jpeg',
 				},
-				{ 
-					id: '004', 
-					title: 'Street Food Park', 
-					src: '/img/stamp/004.jpeg' 
+				{
+					id: '004',
+					title: 'Street Food Park',
+					src: '/img/stamp/004.jpeg',
 				},
 				// Add more images here
 			],
@@ -61,7 +71,9 @@ export default {
 	methods: {
 		// Extract EXIF data and location from image
 		extractLocationData(imageSrc) {
-			const image = this.images.find((img) => this.baseURL + img.src === imageSrc);
+			const image = this.images.find(
+				(img) => this.baseURL + img.src === imageSrc
+			);
 			const imgElement = new Image();
 
 			imgElement.onload = () => {
@@ -165,7 +177,7 @@ export default {
 
 <style scoped>
 .main-container {
-	padding: 40px;
+	padding: 40px 0;
 }
 h2 {
 	font-family: 'Onest', 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -175,10 +187,11 @@ h2 {
 	font-weight: 800;
 	letter-spacing: -0.03em;
 	line-height: 1;
+	padding: 0 40px;
 }
 .lede {
-	padding: 16px 0 40px 0;
-	max-width: 480px;
+	padding: 16px 0 80px 40px;
+	max-width: 560px;
 	font-size: 24px;
 	font-feature-settings: 'ss01' on;
 }
@@ -186,10 +199,53 @@ h3 {
 	font-size: 24px;
 	font-feature-settings: 'ss01' on, 'zero' on;
 	line-height: 1.2;
-	color: var(--color-text);
+	/* color: var(--color-text); */
 	font-weight: 800;
 	padding-bottom: 24px;
 }
+ol {
+	width: 100%;
+
+	& li {
+		padding: 200px 40px;
+
+		.card {
+			margin: 0 auto;
+			display: flex;
+			max-width: 900px;
+			border-radius: 12px;
+			gap: 0 40px;
+		}
+
+		.photo {
+			width: 440px;
+			/* width: calc(33vw - 40px); */
+			height: 440px;
+			object-fit: cover;
+			border-top-left-radius: 12px;
+			border-bottom-left-radius: 12px;
+		}
+	}
+}
+.card article {
+	padding: 64px 40px 40px 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.card article h3 {
+	font-size: 40px;
+	padding: 0;
+}
+.card article h3 + p {
+	padding: 8px 0;
+	font-size: 18px;
+}
+.card article .footnote {
+	font-size: 11px;
+	line-height: 150%;
+}
+/* old styles */
 ul {
 	display: flex;
 	list-style: none;
@@ -197,15 +253,12 @@ ul {
 	margin: 0;
 	gap: 24px 40px;
 	flex-wrap: wrap;
-	/* border: 1px solid #f00; */
-	width:  calc(100vw - 80px);
-	/* justify-content: space-between; */
+	width: calc(100vw - 80px);
 }
 ul li {
 	padding: 0;
 	margin: 0;
 	width: calc(33.3vw - 64px);
-	/* min-width: 280px; */
 }
 ul li:hover {
 	cursor: pointer;
@@ -217,7 +270,6 @@ ul li:hover h3 a {
 ul li .eyebrow.mono {
 	font-size: 14px;
 	font-weight: 500;
-	/* padding-bottom: 4px; */
 	display: block;
 	padding-top: 16px;
 	border-top: 1px dotted var(--color-border);
@@ -228,12 +280,9 @@ ul li:hover .eyebrow.mono {
 .list-animation-enter-from {
 	opacity: 0;
 	filter: blur(2px);
-	/* transform: translateY(-16px); */
 }
 
-.photo {
-	/* max-width: 300px; */
-	/* height: auto; */
+ul li .photo {
 	width: calc(33vw - 40px);
 	height: 320px;
 	margin-bottom: 10px;
@@ -241,8 +290,7 @@ ul li:hover .eyebrow.mono {
 	border-radius: 3px;
 }
 
-p {
+ul li p {
 	font-size: 14px;
-	/* color: #333; */
 }
 </style>

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "axios": "^1.7.9",
     "exif-js": "github:exif-js/exif-js",
     "vue": "^3.5.13",
