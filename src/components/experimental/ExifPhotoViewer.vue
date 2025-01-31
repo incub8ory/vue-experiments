@@ -5,8 +5,8 @@
 			Collection of {{ this.images.length }} stamps (駅スタンプ) taken at train
 			stations and other locations in Japan
 		</p>
-		<ol class="bg-stone-200">
-			<li v-for="image in images" :key="image.id">
+		<ol>
+			<li v-for="image in images" :key="image.id" data-aos="fade-up" data-aos-offset='240'>
 				<div class="card bg-gray-50">
 					<img :src="this.baseURL + image.src" alt="Photo" class="photo" />
 					<article>
@@ -32,7 +32,7 @@
 <script>
 import EXIF from 'exif-js';
 // import axios from 'axios';
-// import AOS from 'aos';
+import AOS from 'aos';
 
 export default {
 	data() {
@@ -66,6 +66,9 @@ export default {
 	mounted() {
 		this.images.forEach((image) => {
 			this.extractLocationData(this.baseURL + image.src);
+		});
+		AOS.init({
+			duration: 1200,
 		});
 	},
 	methods: {
@@ -207,7 +210,8 @@ ol {
 	width: 100%;
 
 	& li {
-		padding: 200px 40px;
+		padding: 120px 40px;
+		/* border-bottom: 1px dotted var(--color-border-soft); */
 
 		.card {
 			margin: 0 auto;
@@ -227,6 +231,9 @@ ol {
 		}
 	}
 }
+/* ol li:nth-of-type(2n+1) {
+	background-color: var(--color-background-muter);
+} */
 .card article {
 	padding: 64px 40px 40px 0;
 	display: flex;
