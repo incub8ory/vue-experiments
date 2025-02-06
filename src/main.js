@@ -9,8 +9,12 @@ import store from './store';
 
 import router from './router';
 
-import AOS from 'aos'; 
+// import AOS from 'aos'; 
+// for handling ExifPhotoViewer animations
 import 'aos/dist/aos.css';
+
+// for MapComponent
+import 'leaflet/dist/leaflet.css';
 
 import App from './App.vue';
 

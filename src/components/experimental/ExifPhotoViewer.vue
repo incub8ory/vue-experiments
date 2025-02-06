@@ -6,11 +6,60 @@
 			stations and other locations in Japan
 		</p>
 		<ol>
+			<li
+				v-for="image in images"
+				:key="image.id"
+				data-aos="fade-up"
+				data-aos-offset="240"
+			>
+				<div class="border border-dotted border-stone-500 card">
+					<img :src="this.baseURL + image.src" alt="Photo" class="photo" />
+					<article class="bg-white dark:bg-stone-900">
+						<div class="content-main text-stone-500 dark:text-stone-50">
+							<!-- <p class="text-rose-300 card-num">
+								<span class="text-slate-400">N°</span>{{ image.id }}
+							</p> -->
+							<span class="eyebrow mono">{{ image.date }}</span>
+							<h3 class="text-stone-700 dark:text-stone-50">
+								<!-- <span class="text-stone-400 dark:text-stone-200">{{ image.id }} / </span> -->
+								{{ image.title }}
+							</h3>
+							<p v-if="image.location">
+								{{ image.location.address }}
+							</p>
+						</div>
+
+						<div v-if="image.location" class="font-mono uppercase footnote">
+							<p class="text-slate-400">Lat: {{ image.location.latitude }}</p>
+							<p class="text-slate-400">Long: {{ image.location.longitude }}</p>
+						</div>
+					</article>
+				</div>
+				<MapComponent
+					v-if="image.location"
+					:mapId="image.id"
+					:mapTitle="image.title"
+					:latitude="image.location.latitude"
+					:longitude="image.location.longitude"
+					class="border border-dotted border-stone-500"
+				/>
+			</li>
+		</ol>
+	</div>
+</template>
+<!-- <template>
+	<div class="main-container" id="stamp-collector">
+		<h2>Eki Stamps</h2>
+		<p class="lede">
+			Collection of {{ this.images.length }} stamps (駅スタンプ) taken at train
+			stations and other locations in Japan
+		</p>
+		<ol>
 			<li v-for="image in images" :key="image.id" data-aos="fade-up" data-aos-offset='240'>
-				<div class="card bg-gray-50">
+				<div class="card bg-neutral-50">
 					<img :src="this.baseURL + image.src" alt="Photo" class="photo" />
 					<article>
-						<div class="content-main text-slate-900">
+						<div class="content-main text-stone-600">
 							<span class="eyebrow mono">{{ image.date }}</span>
 							<h3>{{ image.title }}</h3>
 							<p v-if="image.location">
@@ -18,7 +67,7 @@
 							</p>
 						</div>
 
-						<div v-if="image.location" class="footnote font-mono uppercase">
+						<div v-if="image.location" class="font-mono uppercase footnote">
 							<p class="text-slate-400">Lat: {{ image.location.latitude }}</p>
 							<p class="text-slate-400">Long: {{ image.location.longitude }}</p>
 						</div>
@@ -27,14 +76,20 @@
 			</li>
 		</ol>
 	</div>
-</template>
+</template> -->
 
 <script>
-import EXIF from 'exif-js';
+// import EXIF from 'exif-js';
 // import axios from 'axios';
+import exifr from 'exifr';
 import AOS from 'aos';
 
+import MapComponent from '@/components/experimental/MapComponent.vue';
+
 export default {
+	components: {
+		MapComponent,
+	},
 	data() {
 		return {
 			baseURL: '/vue-experiments',
@@ -64,53 +119,89 @@ export default {
 		};
 	},
 	mounted() {
+		// this.images.forEach((image) => {
+		// 	this.extractLocationData(this.baseURL + image.src);
+		// });
 		this.images.forEach((image) => {
-			this.extractLocationData(this.baseURL + image.src);
+			// this.extractLocationData(image.src);
+			this.getExifrGPS(this.baseURL + image.src);
 		});
 		AOS.init({
 			duration: 1200,
 		});
 	},
 	methods: {
-		// Extract EXIF data and location from image
-		extractLocationData(imageSrc) {
-			const image = this.images.find(
-				(img) => this.baseURL + img.src === imageSrc
-			);
+		// use exifr rather than exif-js to get GPS lat, long, date
+		async getExifrGPS(imageSrc) {
+			// const file = event.target.files[0];
+			const image = this.images.find((img) => this.baseURL + img.src === imageSrc);
 			const imgElement = new Image();
 
-			imgElement.onload = () => {
-				EXIF.getData(imgElement, () => {
-					const lat = EXIF.getTag(imgElement, 'GPSLatitude');
-					const lon = EXIF.getTag(imgElement, 'GPSLongitude');
-					const dateStamp = EXIF.getTag(imgElement, 'GPSDateStamp');
+			try {
+				const exifData = await exifr.gps(imageSrc);
+				const dateStamp = await exifr.parse(imageSrc, ['GPSDateStamp']);
+				if (exifData && exifData.latitude && exifData.longitude) {
+					const latitude = exifData.latitude;
+					const longitude = exifData.longitude;
 
-					// const allTags = EXIF.getAllTags(imgElement);
-					// const allTagsString = JSON.stringify(allTags, null, "\t");
-					// console.log('all tags: ' + allTagsString);
+					// console.log('dateStamp.GPSDateStamp: ' + dateStamp.GPSDateStamp);
+					image.date = this.convertExifDate(dateStamp.GPSDateStamp);
 
-					if (lat && lon) {
-						const latitude = this.convertToDecimal(lat);
-						const longitude = this.convertToDecimal(lon);
-
-						console.log('dateStamp: ' + dateStamp);
-						image.date = this.convertExifDate(dateStamp);
-
-						// Fetch address using geocoding API
-						// this.getAddressFromCoordinates(latitude, longitude)
-						this.fetchAddress(latitude, longitude)
-							.then((address) => {
-								image.location = { latitude, longitude, address };
-							})
-							.catch((err) => console.error(err));
-					} else {
-						image.location = { error: 'No GPS data found.' };
-					}
-				});
-			};
+					this.fetchAddress(latitude, longitude)
+						.then((address) => {
+							image.location = { latitude, longitude, address };
+							// console.log('exifr address: ' + image.location.address);
+						})
+						.catch((err) => console.error(err));
+				} else {
+					console.warn('No EXIF data found');
+				}
+			} catch (error) {
+				console.error('Error reading EXIF data:', error);
+			}
 
 			imgElement.src = imageSrc;
 		},
+
+		// // Extract EXIF data and location from image
+		// extractLocationData(imageSrc) {
+		// 	const image = this.images.find(
+		// 		(img) => this.baseURL + img.src === imageSrc
+		// 	);
+		// 	const imgElement = new Image();
+
+		// 	imgElement.onload = () => {
+		// 		EXIF.getData(imgElement, () => {
+		// 			const lat = EXIF.getTag(imgElement, 'GPSLatitude');
+		// 			const lon = EXIF.getTag(imgElement, 'GPSLongitude');
+		// 			const dateStamp = EXIF.getTag(imgElement, 'GPSDateStamp');
+
+		// 			// const allTags = EXIF.getAllTags(imgElement);
+		// 			// const allTagsString = JSON.stringify(allTags, null, "\t");
+		// 			// console.log('all tags: ' + allTagsString);
+
+		// 			if (lat && lon) {
+		// 				const latitude = this.convertToDecimal(lat);
+		// 				const longitude = this.convertToDecimal(lon);
+
+		// 				console.log('dateStamp: ' + dateStamp);
+		// 				image.date = this.convertExifDate(dateStamp);
+
+		// 				// Fetch address using geocoding API
+		// 				// this.getAddressFromCoordinates(latitude, longitude)
+		// 				this.fetchAddress(latitude, longitude)
+		// 					.then((address) => {
+		// 						image.location = { latitude, longitude, address };
+		// 					})
+		// 					.catch((err) => console.error(err));
+		// 			} else {
+		// 				image.location = { error: 'No GPS data found.' };
+		// 			}
+		// 		});
+		// 	};
+
+		// 	imgElement.src = imageSrc;
+		// },
 
 		// change ExifDate format from yyyy:mm:dd to dd mmm yyyy
 		convertExifDate(exifDate) {
@@ -128,6 +219,7 @@ export default {
 			return formattedDate;
 		},
 
+		// Method used for exif-js
 		// Convert GPS coordinates to decimal format
 		convertToDecimal(gpsData) {
 			if (Array.isArray(gpsData)) {
@@ -181,6 +273,7 @@ export default {
 <style scoped>
 .main-container {
 	padding: 40px 0;
+	/* background-color: var(--color-background-mute); */
 }
 h2 {
 	font-family: 'Onest', 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -199,51 +292,133 @@ h2 {
 	font-feature-settings: 'ss01' on;
 }
 h3 {
-	font-size: 24px;
+	font-family: 'Gloock', 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+		'Segoe UI Emoji';
+	font-size: 48px;
+	/* font-size: 40px; */
 	font-feature-settings: 'ss01' on, 'zero' on;
-	line-height: 1.2;
-	/* color: var(--color-text); */
+	line-height: 1;
 	font-weight: 800;
-	padding-bottom: 24px;
+	/* padding-bottom: 24px; */
+	letter-spacing: -0.02em;
+	padding: 8px 0 12px 0;
+	/* color: var(--color-text); */
+
+	& span {
+		/* font-size: 32px; */
+		/* font-size: 40px; */
+		font-weight: 800;
+		/* display: block; */
+	}
 }
 ol {
-	width: 100%;
+	/* width: 100%; */
+	padding-bottom: 240px;
 
 	& li {
 		padding: 120px 40px;
-		/* border-bottom: 1px dotted var(--color-border-soft); */
 
 		.card {
 			margin: 0 auto;
-			display: flex;
-			max-width: 900px;
-			border-radius: 12px;
-			gap: 0 40px;
+			/* border: 1px dotted var(--color-text); */
+			/* display: flex; */
+			/* max-width: 960px; */
+			max-width: calc(100vw - 160px);
+			border-top-left-radius: 12px;
+			border-top-right-radius: 12px;
+			/* border-bottom-left-radius: 12px; */
+			/* gap: 0 40px; */
+			/* border-bottom: 1px dashed var(--color-background); */
+			/* gap: 0 2px; */
 		}
 
 		.photo {
-			width: 440px;
-			/* width: calc(33vw - 40px); */
-			height: 440px;
+			/* min-width: 384px; */
+			/* min-width: calc(40vw - 80px); */
+			min-width: calc(100vw - 160px);
+			/* height: 400px; */
+			height: 320px;
 			object-fit: cover;
 			border-top-left-radius: 12px;
-			border-bottom-left-radius: 12px;
+			border-top-right-radius: 12px;
+			/* border-bottom-left-radius: 12px; */
 		}
 	}
 }
-/* ol li:nth-of-type(2n+1) {
-	background-color: var(--color-background-muter);
-} */
 .card article {
-	padding: 64px 40px 40px 0;
+	padding: 48px 40px 40px 40px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	border-top-right-radius: 12px;
+	/* border-bottom-right-radius: 12px; */
+	/* width: 50%; */
 }
-.card article h3 {
+.card article .content-main {
+	padding-bottom: 64px;
+}
+.card article .content-main p {
+	font-size: 16px;
+	padding-right: 24px;
+}
+.map-container {
+	/* max-width: 960px; */
+	/* max-width: calc(100vw - 160px); */
+	width: calc(100vw - 160px);
+	height: 120px;
+	margin: 0 auto;
+	/* border: 1px solid #f00; */
+	/* border: 1px dotted var(--color-text); */
+	border-top: 0;
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+	/* border: 1px solid #f00; */
+	overflow-y: hidden;
+}
+
+@media (width >= 48rem) {
+	h3 {
+		font-size: 56px;
+
+		span {
+			font-size: 40px;
+			display: block;
+		}
+	}
+	ol li .card {
+		display: flex;
+		max-width: 960px;
+	}
+	ol li .card article .content-main {
+		padding-bottom: 0;
+	}
+	ol li .photo {
+		width: 380px;
+		min-width: calc(40vw - 80px);
+		/* max-width: 380px; */
+		/* width: 380px; */
+		/* min-width: 320px; */
+		height: 480px;
+		/* border-bottom-left-radius: 12px; */
+		border-top-left-radius: 12px;
+		border-top-right-radius: 0;
+	}
+
+	.map-container {
+		width: calc(100vw - 80px);
+		max-width: 960px;
+		height: 120px;
+	}
+}
+.card .eyebrow {
+	font-size: 13px;
+	text-transform: uppercase;
+}
+/* .card article h3 {
 	font-size: 40px;
 	padding: 0;
-}
+} */
 .card article h3 + p {
 	padding: 8px 0;
 	font-size: 18px;
@@ -252,8 +427,10 @@ ol {
 	font-size: 11px;
 	line-height: 150%;
 }
+
 /* old styles */
-ul {
+
+/* ul {
 	display: flex;
 	list-style: none;
 	padding: 24px 0 160px 0;
@@ -299,5 +476,5 @@ ul li .photo {
 
 ul li p {
 	font-size: 14px;
-}
+} */
 </style>
