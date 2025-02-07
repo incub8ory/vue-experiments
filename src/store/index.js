@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import counterModule from './modules/counterModule';
 import teaModule from './modules/teaModule';
+import ekiStampModule from './modules/ekiStampModule';
 
 import rootMutations from './mutations';
 import rootActions from './actions';
@@ -10,6 +11,7 @@ const store = createStore({
 	modules: {
 		counterCalculations: counterModule,
 		teaModule: teaModule,
+		ekiStampModule: ekiStampModule,
 	},
 	state() {
 		return {

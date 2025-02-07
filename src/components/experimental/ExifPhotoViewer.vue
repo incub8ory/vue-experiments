@@ -2,23 +2,20 @@
 	<div class="main-container" id="stamp-collector">
 		<h2>Eki Stamps</h2>
 		<p class="lede">
-			Collection of {{ this.images.length }} stamps (駅スタンプ) taken at train
+			Collection of {{ this.ekiStampsDataStore.length }} stamps (駅スタンプ) taken at train
 			stations and other locations in Japan
 		</p>
 		<ol>
 			<li
-				v-for="image in images"
+				v-for="image in this.ekiStampsDataStore"
 				:key="image.id"
 				data-aos="fade-up"
 				data-aos-offset="240"
 			>
 				<div class="border border-dotted border-stone-500 card">
-					<img :src="this.baseURL + image.src" alt="Photo" class="photo" />
+					<img :src="this.baseURL + image.src" :alt="image.title" class="photo" />
 					<article class="bg-white dark:bg-stone-900">
 						<div class="content-main text-stone-500 dark:text-stone-50">
-							<!-- <p class="text-rose-300 card-num">
-								<span class="text-slate-400">N°</span>{{ image.id }}
-							</p> -->
 							<span class="eyebrow mono">{{ image.date }}</span>
 							<h3 class="text-stone-700 dark:text-stone-50">
 								<!-- <span class="text-stone-400 dark:text-stone-200">{{ image.id }} / </span> -->
@@ -47,36 +44,6 @@
 		</ol>
 	</div>
 </template>
-<!-- <template>
-	<div class="main-container" id="stamp-collector">
-		<h2>Eki Stamps</h2>
-		<p class="lede">
-			Collection of {{ this.images.length }} stamps (駅スタンプ) taken at train
-			stations and other locations in Japan
-		</p>
-		<ol>
-			<li v-for="image in images" :key="image.id" data-aos="fade-up" data-aos-offset='240'>
-				<div class="card bg-neutral-50">
-					<img :src="this.baseURL + image.src" alt="Photo" class="photo" />
-					<article>
-						<div class="content-main text-stone-600">
-							<span class="eyebrow mono">{{ image.date }}</span>
-							<h3>{{ image.title }}</h3>
-							<p v-if="image.location">
-								{{ image.location.address }}
-							</p>
-						</div>
-
-						<div v-if="image.location" class="font-mono uppercase footnote">
-							<p class="text-slate-400">Lat: {{ image.location.latitude }}</p>
-							<p class="text-slate-400">Long: {{ image.location.longitude }}</p>
-						</div>
-					</article>
-				</div>
-			</li>
-		</ol>
-	</div>
-</template> -->
 
 <script>
 // import EXIF from 'exif-js';
@@ -86,6 +53,8 @@ import AOS from 'aos';
 
 import MapComponent from '@/components/experimental/MapComponent.vue';
 
+import { mapGetters } from 'vuex';
+
 export default {
 	components: {
 		MapComponent,
@@ -93,36 +62,36 @@ export default {
 	data() {
 		return {
 			baseURL: '/vue-experiments',
-			images: [
-				{
-					id: '000',
-					title: 'Momo Bao',
-					src: '/img/stamp/000.jpeg',
-				},
-				{
-					id: '001',
-					title: 'Ichiran Ramen',
-					src: '/img/stamp/001.jpeg',
-				},
-				{
-					id: '002',
-					title: 'JR Fruit Park',
-					src: '/img/stamp/002.jpeg',
-				},
-				{
-					id: '004',
-					title: 'Street Food Park',
-					src: '/img/stamp/004.jpeg',
-				},
-				// Add more images here
-			],
+			// images: [
+			// 	{
+			// 		id: '000',
+			// 		title: 'Momo Bao',
+			// 		src: '/img/stamp/000.jpeg',
+			// 	},
+			// 	{
+			// 		id: '001',
+			// 		title: 'Ichiran Ramen',
+			// 		src: '/img/stamp/001.jpeg',
+			// 	},
+			// 	{
+			// 		id: '002',
+			// 		title: 'JR Fruit Park',
+			// 		src: '/img/stamp/002.jpeg',
+			// 	},
+			// 	{
+			// 		id: '004',
+			// 		title: 'Street Food Park',
+			// 		src: '/img/stamp/004.jpeg',
+			// 	},
+			// 	// Add more images here
+			// ],
 		};
 	},
+	computed: {
+		...mapGetters(['ekiStampsDataStore']),
+	},
 	mounted() {
-		// this.images.forEach((image) => {
-		// 	this.extractLocationData(this.baseURL + image.src);
-		// });
-		this.images.forEach((image) => {
+		this.ekiStampsDataStore.forEach((image) => {
 			// this.extractLocationData(image.src);
 			this.getExifrGPS(this.baseURL + image.src);
 		});
@@ -134,7 +103,7 @@ export default {
 		// use exifr rather than exif-js to get GPS lat, long, date
 		async getExifrGPS(imageSrc) {
 			// const file = event.target.files[0];
-			const image = this.images.find((img) => this.baseURL + img.src === imageSrc);
+			const image = this.ekiStampsDataStore.find((img) => this.baseURL + img.src === imageSrc);
 			const imgElement = new Image();
 
 			try {
@@ -219,17 +188,17 @@ export default {
 			return formattedDate;
 		},
 
-		// Method used for exif-js
-		// Convert GPS coordinates to decimal format
-		convertToDecimal(gpsData) {
-			if (Array.isArray(gpsData)) {
-				const degrees = gpsData[0];
-				const minutes = gpsData[1];
-				const seconds = gpsData[2];
-				return degrees + minutes / 60 + seconds / 3600;
-			}
-			return null;
-		},
+		// // Method used for exif-js
+		// // Convert GPS coordinates to decimal format
+		// convertToDecimal(gpsData) {
+		// 	if (Array.isArray(gpsData)) {
+		// 		const degrees = gpsData[0];
+		// 		const minutes = gpsData[1];
+		// 		const seconds = gpsData[2];
+		// 		return degrees + minutes / 60 + seconds / 3600;
+		// 	}
+		// 	return null;
+		// },
 
 		// Geocoding API to get human-readable address
 		// async getAddressFromCoordinates(latitude, longitude) {
@@ -273,7 +242,6 @@ export default {
 <style scoped>
 .main-container {
 	padding: 40px 0;
-	/* background-color: var(--color-background-mute); */
 }
 h2 {
 	font-family: 'Onest', 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -300,20 +268,14 @@ h3 {
 	font-feature-settings: 'ss01' on, 'zero' on;
 	line-height: 1;
 	font-weight: 800;
-	/* padding-bottom: 24px; */
 	letter-spacing: -0.02em;
 	padding: 8px 0 12px 0;
-	/* color: var(--color-text); */
 
 	& span {
-		/* font-size: 32px; */
-		/* font-size: 40px; */
 		font-weight: 800;
-		/* display: block; */
 	}
 }
 ol {
-	/* width: 100%; */
 	padding-bottom: 240px;
 
 	& li {
@@ -321,28 +283,17 @@ ol {
 
 		.card {
 			margin: 0 auto;
-			/* border: 1px dotted var(--color-text); */
-			/* display: flex; */
-			/* max-width: 960px; */
 			max-width: calc(100vw - 160px);
 			border-top-left-radius: 12px;
 			border-top-right-radius: 12px;
-			/* border-bottom-left-radius: 12px; */
-			/* gap: 0 40px; */
-			/* border-bottom: 1px dashed var(--color-background); */
-			/* gap: 0 2px; */
 		}
 
 		.photo {
-			/* min-width: 384px; */
-			/* min-width: calc(40vw - 80px); */
 			min-width: calc(100vw - 160px);
-			/* height: 400px; */
 			height: 320px;
 			object-fit: cover;
 			border-top-left-radius: 12px;
 			border-top-right-radius: 12px;
-			/* border-bottom-left-radius: 12px; */
 		}
 	}
 }
@@ -352,8 +303,6 @@ ol {
 	flex-direction: column;
 	justify-content: space-between;
 	border-top-right-radius: 12px;
-	/* border-bottom-right-radius: 12px; */
-	/* width: 50%; */
 }
 .card article .content-main {
 	padding-bottom: 64px;
@@ -363,17 +312,12 @@ ol {
 	padding-right: 24px;
 }
 .map-container {
-	/* max-width: 960px; */
-	/* max-width: calc(100vw - 160px); */
 	width: calc(100vw - 160px);
 	height: 120px;
 	margin: 0 auto;
-	/* border: 1px solid #f00; */
-	/* border: 1px dotted var(--color-text); */
 	border-top: 0;
 	border-bottom-left-radius: 12px;
 	border-bottom-right-radius: 12px;
-	/* border: 1px solid #f00; */
 	overflow-y: hidden;
 }
 
@@ -396,11 +340,7 @@ ol {
 	ol li .photo {
 		width: 380px;
 		min-width: calc(40vw - 80px);
-		/* max-width: 380px; */
-		/* width: 380px; */
-		/* min-width: 320px; */
 		height: 480px;
-		/* border-bottom-left-radius: 12px; */
 		border-top-left-radius: 12px;
 		border-top-right-radius: 0;
 	}
@@ -415,10 +355,6 @@ ol {
 	font-size: 13px;
 	text-transform: uppercase;
 }
-/* .card article h3 {
-	font-size: 40px;
-	padding: 0;
-} */
 .card article h3 + p {
 	padding: 8px 0;
 	font-size: 18px;
@@ -427,54 +363,4 @@ ol {
 	font-size: 11px;
 	line-height: 150%;
 }
-
-/* old styles */
-
-/* ul {
-	display: flex;
-	list-style: none;
-	padding: 24px 0 160px 0;
-	margin: 0;
-	gap: 24px 40px;
-	flex-wrap: wrap;
-	width: calc(100vw - 80px);
-}
-ul li {
-	padding: 0;
-	margin: 0;
-	width: calc(33.3vw - 64px);
-}
-ul li:hover {
-	cursor: pointer;
-}
-ul li:hover h3 a {
-	color: var(--color-heading);
-	transition: all 0.4s ease-in;
-}
-ul li .eyebrow.mono {
-	font-size: 14px;
-	font-weight: 500;
-	display: block;
-	padding-top: 16px;
-	border-top: 1px dotted var(--color-border);
-}
-ul li:hover .eyebrow.mono {
-	border-top: 1px solid var(--color-border);
-}
-.list-animation-enter-from {
-	opacity: 0;
-	filter: blur(2px);
-}
-
-ul li .photo {
-	width: calc(33vw - 40px);
-	height: 320px;
-	margin-bottom: 10px;
-	object-fit: cover;
-	border-radius: 3px;
-}
-
-ul li p {
-	font-size: 14px;
-} */
 </style>
