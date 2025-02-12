@@ -28,12 +28,13 @@ export default {
 		return {
 			baseURL: '/vue-experiments',
 			labExperiments: [
-				{ id: '01', routeName: 'list', linkText: 'Shopping List' },
-				{ id: '02', routeName: 'tea', linkText: 'Tea Tasting' },
-				{ id: '03', routeName: 'vuex', linkText: 'VueX' },
-				{ id: '04', routeName: 'vuex-tutorial', linkText: 'VueX*' },
-				{ id: '05', routeName: 'photo-locator', linkText: 'Photo Locator' },
-				{ id: '06', routeName: 'stamp-collector', linkText: 'Eki Stamp Collector' },
+				{ id: '01', routeName: '01', linkText: 'Shopping List' },
+				{ id: '02', routeName: '02', linkText: 'Tea Tasting' },
+				{ id: '03', routeName: '03', linkText: 'VueX' },
+				{ id: '04', routeName: '04', linkText: 'VueX*' },
+				{ id: '05', routeName: '05', linkText: 'Photo Locator' },
+				// { id: '06.1', routeName: '06.1', linkText: 'Eki Stamp Collector' },
+				{ id: '06', routeName: '06', linkText: 'Eki Stamps'},
 			],
 		};
 	},

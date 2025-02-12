@@ -17,6 +17,8 @@ import TeaDetailsPage from '@/components/experimental/TeaDetailsPage.vue';
 import VueXTutorial from '@/components/experimental/VueXTutorial.vue';
 import PhotoLocationExtractor from '@/components/experimental/PhotoLocationExtractor.vue';
 import ExifPhotoViewer from '@/components/experimental/ExifPhotoViewer.vue';
+import EkiStamps from '@/components/experimental/EkiStamps.vue';
+
 
 // const router = createRouter({
 //   history: createWebHistory(import.meta.env.BASE_URL),
@@ -81,17 +83,19 @@ const router = createRouter({
 			name: 'experimental',
 			path: '/vue-experiments/experimental/',
 			component: TheExperiments,
-			alias: '/experimental/home',
+			alias: '/vue-experiments/experimental/home',
 		},
 		{
-			name: 'list',
+			name: '01',
 			path: '/vue-experiments/experimental/list',
 			component: ShoppingList,
+			alias: '/vue-experiments/experimental/01',
 		},
 		{
-			name: 'tea',
+			name: '02',
 			path: '/vue-experiments/experimental/tea',
 			component: TeaTasting,
+			alias: '/vue-experiments/experimental/02',
 		},
 		{
 			name: 'tea-details',
@@ -100,25 +104,34 @@ const router = createRouter({
 			props: true,
 		},
 		{
-			name: 'vuex',
+			name: '03',
 			path: '/vue-experiments/experimental/vuex',
 			component: VueX,
+			alias: '/vue-experiments/experimental/03',
 		},
 		{
-			name: 'vuex-tutorial',
+			name: '04',
 			path: '/vue-experiments/experimental/vuex-tutorial',
 			component: VueXTutorial,
+			alias: '/vue-experiments/experimental/04',
 		},
 		{
-			name: 'photo-locator',
+			name: '05',
 			path: '/vue-experiments/experimental/photo-locator',
 			component: PhotoLocationExtractor,
+			alias: '/vue-experiments/experimental/05',
 		},
 		{
-			name: 'stamp-collector',
+			name: '06.1',
 			path: '/vue-experiments/experimental/stamp-collector',
 			component: ExifPhotoViewer,
-			alias: '/stamp',
+			alias: '/vue-experiments/experimental/06.1',
+		},
+		{
+			name: '06',
+			path: '/experimental/eki-stamps',
+			component: EkiStamps,
+			alias: '/vue-experiments/experimental/06',
 		},
 		{ path: '/404', component: NotFound },
 		{ path: '/:notFound(.*)', redirect: '/404' }, // catch all route

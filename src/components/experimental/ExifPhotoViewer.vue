@@ -13,8 +13,11 @@
 				data-aos-offset="240"
 			>
 				<div class="border border-dotted border-stone-500 card">
-					<img :src="this.baseURL + image.src" :alt="image.title" class="photo" />
-					<article class="bg-white dark:bg-stone-900">
+					<img
+						:src="this.$store.state.ekiStampModule.baseURL + image.src"
+						:alt="image.title"
+						class="photo"
+					/>					<article class="bg-white dark:bg-stone-900">
 						<div class="content-main text-stone-500 dark:text-stone-50">
 							<span class="eyebrow mono">{{ image.date }}</span>
 							<h3 class="text-stone-700 dark:text-stone-50">
@@ -59,41 +62,43 @@ export default {
 	components: {
 		MapComponent,
 	},
-	data() {
-		return {
-			baseURL: '/vue-experiments',
-			// images: [
-			// 	{
-			// 		id: '000',
-			// 		title: 'Momo Bao',
-			// 		src: '/img/stamp/000.jpeg',
-			// 	},
-			// 	{
-			// 		id: '001',
-			// 		title: 'Ichiran Ramen',
-			// 		src: '/img/stamp/001.jpeg',
-			// 	},
-			// 	{
-			// 		id: '002',
-			// 		title: 'JR Fruit Park',
-			// 		src: '/img/stamp/002.jpeg',
-			// 	},
-			// 	{
-			// 		id: '004',
-			// 		title: 'Street Food Park',
-			// 		src: '/img/stamp/004.jpeg',
-			// 	},
-			// 	// Add more images here
-			// ],
-		};
-	},
+
+	// data() {
+	// 	return {
+	// 		baseURL: '/vue-experiments',
+	// 		images: [
+	// 			{
+	// 				id: '000',
+	// 				title: 'Momo Bao',
+	// 				src: '/img/stamp/000.jpeg',
+	// 			},
+	// 			{
+	// 				id: '001',
+	// 				title: 'Ichiran Ramen',
+	// 				src: '/img/stamp/001.jpeg',
+	// 			},
+	// 			{
+	// 				id: '002',
+	// 				title: 'JR Fruit Park',
+	// 				src: '/img/stamp/002.jpeg',
+	// 			},
+	// 			{
+	// 				id: '004',
+	// 				title: 'Street Food Park',
+	// 				src: '/img/stamp/004.jpeg',
+	// 			},
+	// 			// Add more images here
+	// 		],
+	// 	};
+	// },
+	
 	computed: {
 		...mapGetters(['ekiStampsDataStore']),
 	},
 	mounted() {
 		this.ekiStampsDataStore.forEach((image) => {
 			// this.extractLocationData(image.src);
-			this.getExifrGPS(this.baseURL + image.src);
+			this.getExifrGPS(this.$store.state.ekiStampModule.baseURL + image.src);
 		});
 		AOS.init({
 			duration: 1200,
@@ -103,7 +108,7 @@ export default {
 		// use exifr rather than exif-js to get GPS lat, long, date
 		async getExifrGPS(imageSrc) {
 			// const file = event.target.files[0];
-			const image = this.ekiStampsDataStore.find((img) => this.baseURL + img.src === imageSrc);
+			const image = this.ekiStampsDataStore.find((img) => this.$store.state.ekiStampModule.baseURL + img.src === imageSrc);
 			const imgElement = new Image();
 
 			try {
@@ -132,6 +137,7 @@ export default {
 			imgElement.src = imageSrc;
 		},
 
+		// // Method for use with exif-js (or OpenCage)
 		// // Extract EXIF data and location from image
 		// extractLocationData(imageSrc) {
 		// 	const image = this.images.find(
@@ -188,7 +194,7 @@ export default {
 			return formattedDate;
 		},
 
-		// // Method used for exif-js
+		// // Method used for exif-js or OpenCage
 		// // Convert GPS coordinates to decimal format
 		// convertToDecimal(gpsData) {
 		// 	if (Array.isArray(gpsData)) {
@@ -200,6 +206,7 @@ export default {
 		// 	return null;
 		// },
 
+		// Uses OpenCage API; requires API key
 		// Geocoding API to get human-readable address
 		// async getAddressFromCoordinates(latitude, longitude) {
 		// 	// const apiKey = this.openCageAPIKey; // Replace with your OpenCage API Key
