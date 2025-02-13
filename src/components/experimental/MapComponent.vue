@@ -34,9 +34,10 @@ export default {
 			);
 
 			// stamen url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+			// stamen url="https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png"
 			// leaflet url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 			L.tileLayer(
-				'https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png',
+				'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 				{
 					maxZoom: 20,
 				}
