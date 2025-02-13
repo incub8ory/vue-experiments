@@ -1,7 +1,0 @@
-.DS_Store
-.env
-dist/
-fonts/
-
-# Dependency directories
-node_modules/
