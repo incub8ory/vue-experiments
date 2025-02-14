@@ -5,7 +5,8 @@
 <script>
 import { onMounted } from 'vue';
 import L from 'leaflet';
-import markerIcon from '../../../public/img/leaflet/marker-icon.png';
+// import markerIcon from '../../../public/img/leaflet/marker-icon.png';
+import markerIcon from '@/img/leaflet/marker-icon.png';
 
 export default {
 	name: 'MapComponent',
