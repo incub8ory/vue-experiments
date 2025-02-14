@@ -129,7 +129,7 @@ const router = createRouter({
 		},
 		{
 			name: '06',
-			path: '/experimental/eki-stamps',
+			path: '/vue-experiments/experimental/eki-stamps',
 			component: EkiStamps,
 			alias: '/vue-experiments/experimental/06',
 		},
