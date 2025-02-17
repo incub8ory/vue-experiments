@@ -31,7 +31,7 @@
 							</p>
 						</header>
 						<img
-							:src="this.$store.state.ekiStampModule.baseURL + image.src"
+							:src="this.$store.state.baseURL + image.src"
 							:alt="image.title"
 							class="photo"
 						/>
@@ -89,7 +89,7 @@ export default {
 	mounted() {
 		this.ekiStampsDataStore.forEach((image) => {
 			// this.extractLocationData(image.src);
-			this.getExifrGPS(this.$store.state.ekiStampModule.baseURL + image.src);
+			this.getExifrGPS(this.$store.state.baseURL + image.src);
 		});
 	},
 	methods: {
@@ -109,7 +109,7 @@ export default {
 			// const file = event.target.files[0];
 			// const image = this.images.find((img) => img.src === imageSrc);
 			const image = this.ekiStampsDataStore.find(
-				(img) => this.$store.state.ekiStampModule.baseURL + img.src === imageSrc
+				(img) => this.$store.state.baseURL + img.src === imageSrc
 			);
 			const imgElement = new Image();
 

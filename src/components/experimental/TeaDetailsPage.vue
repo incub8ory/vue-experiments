@@ -2,7 +2,7 @@
 	<div class="main-container">
 		<header>
 			<p class="mono">
-				<RouterLink :to="{ name: 'tea' }">Tea Tasting</RouterLink>
+				<RouterLink :to="this.$store.state.baseURL + { name: '02' }">Tea Tasting</RouterLink>
 			</p>
 			<h2>{{ this.teaDataset[this.teaIndex].name }}</h2>
 		</header>
@@ -107,7 +107,7 @@
 							</p>
 							<ul class="gallery">
 								<li v-for="image in this.teaDataset[this.teaIndex].imageFiles">
-									<img :src="`/vue-experiments${image.url}`" :alt="image.alt" />
+									<img :src="this.$store.state.baseURL + `${image.url}`" :alt="image.alt" />
 								</li>
 							</ul>
 						</div>
@@ -155,7 +155,6 @@ export default {
 	},
 	data() {
 		return {
-			baseURL: '/vue-experiments',
 			teaName: '',
 			teaIndex: null,
 			notFound: false,
@@ -217,7 +216,7 @@ export default {
 				this.teaIndex++;
 			}
 			this.teaId = this.teaDataset[this.teaIndex].id;
-			this.$router.push(this.baseURL + '/tea/' + this.teaId);
+			this.$router.push(this.$store.state.baseURL + '/experimental/02/' + this.teaId);
 		},
 		previousRoute() {
 			if (this.teaIndex === 0) {
@@ -226,7 +225,7 @@ export default {
 				this.teaIndex--;
 			}
 			this.teaId = this.teaDataset[this.teaIndex].id;
-			this.$router.push(this.baseURL + '/tea/' + this.teaId);
+			this.$router.push(this.$store.state.baseURL +'/experimental/02/' + this.teaId);
 		},
 		addKeyEventHandlers() {
 			window.addEventListener('keydown', this.keyDownHandler);
@@ -293,6 +292,7 @@ header h2 {
 	font-weight: 800;
 	letter-spacing: -0.02em;
 	line-height: 1;
+	/* padding-bottom: 16px; */
 }
 nav {
 	margin-bottom: 24px;
@@ -321,7 +321,7 @@ nav ul li:hover svg line {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: 4px;
+	gap: 0 4px;
 
 	li {
 		padding: 0;

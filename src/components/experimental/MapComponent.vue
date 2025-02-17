@@ -6,7 +6,8 @@
 import { onMounted } from 'vue';
 import L from 'leaflet';
 // import markerIcon from '../../../public/img/leaflet/marker-icon.png';
-import markerIcon from '@/img/leaflet/marker-icon.png';
+// import markerIcon from 'src/img/leaflet/marker-icon.png';
+import markerIcon from '@/img/leaflet/marker-icon-2x.png';
 
 export default {
 	name: 'MapComponent',
@@ -25,7 +26,7 @@ export default {
 		},
 		mapTitle: {
 			type: String,
-			required: true,
+			required: false,
 		},
 	},
 	setup(props) {
@@ -33,6 +34,8 @@ export default {
 			L.Marker.prototype.setIcon(
 				L.icon({
 					iconUrl: markerIcon,
+					iconSize: [25, 41],
+					iconAnchor: [14, 36],
 				})
 			);
 			const map = L.map(props.mapId).setView(

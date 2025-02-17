@@ -1,7 +1,6 @@
 export default {
 	state() {
 		return {
-			baseURL: '/vue-experiments',
 			ekiStampImages: [
 				{
 					id: '000',

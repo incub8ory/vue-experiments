@@ -19,6 +19,7 @@ const store = createStore({
 		return {
 			isLoggedIn: false,
 			isUserLoggedIn: false,
+			baseURL: '/vue-experiments',
 		};
 	},
 
@@ -27,7 +28,6 @@ const store = createStore({
 	actions: rootActions,
 
 	getters: rootGetters,
-
 });
 
 export default store;

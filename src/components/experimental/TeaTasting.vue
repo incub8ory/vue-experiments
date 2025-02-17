@@ -31,7 +31,7 @@
 			>
 				<span class="eyebrow mono">{{ tea.seller }}</span>
 				<h3>
-					<router-link :to="this.baseURL + '/tea/' + tea.id">
+					<router-link :to="this.$store.state.baseURL + '/experimental/02/' + tea.id">
 						{{ tea.name }}</router-link
 					>
 				</h3>
@@ -70,7 +70,7 @@ export default {
 	// inject: ['teaData'],
 	data() {
 		return {
-			baseURL: '/vue-experiments',
+			// baseURL: '/vue-experiments',
 			showDetails: false,
 			chartLabelsKey: [
 				'Sweetness',
@@ -210,7 +210,7 @@ export default {
 		},
 		changeRoute(newId) {
 			// `route` is either a string or object
-			const newRoute = this.baseURL + '/tea/' + newId;
+			const newRoute = this.$store.state.baseURL + '/experimental/02/' + newId;
 			console.log('changeRoute activated!');
 			this.$router.push(newRoute);
 		},

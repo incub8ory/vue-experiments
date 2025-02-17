@@ -99,7 +99,7 @@ const router = createRouter({
 		},
 		{
 			name: 'tea-details',
-			path: '/vue-experiments/tea/:teaId',
+			path: '/vue-experiments/experimental/02/:teaId',
 			component: TeaDetailsPage,
 			props: true,
 		},
