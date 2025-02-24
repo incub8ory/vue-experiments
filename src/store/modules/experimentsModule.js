@@ -29,6 +29,12 @@ export default {
 					title: 'Eki Stamps',
 					shortDescription: '',
 				},
+				{
+					id: '07',
+					routeName: '07',
+					title: 'Manhole Covers',
+					shortDescription: '',
+				},
 			],
 		};
 	},

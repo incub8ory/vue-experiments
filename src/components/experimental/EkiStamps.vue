@@ -1,12 +1,8 @@
 <template>
 	<div class="project-container" id="stamp-collector">
 		<div class="sidebar">
-			<nav>
-				<router-link :to="{ name: 'experimental' }">
-					Lab Experiments
-				</router-link>
-				&sol; <span>{{ this.projectID }}</span>
-			</nav>
+			<SecondaryNavigation :projectID="this.projectID" />
+
 			<div class="lede">
 				<h2>{{ this.getProjectTitle(this.projectID) }}</h2>
 				<p>
@@ -68,10 +64,13 @@
 <script>
 import exifr from 'exifr';
 import { mapGetters } from 'vuex';
+
+import SecondaryNavigation from '../nav/SecondaryNavigation.vue';
 import MapComponent from '@/components/experimental/MapComponent.vue';
 
 export default {
 	components: {
+		SecondaryNavigation,
 		MapComponent,
 	},
 
@@ -80,28 +79,26 @@ export default {
 	},
 	data() {
 		return {
-
-			// For subnav and displaying proj title 
+			// For subnav and displaying proj title
 			projectID: '06',
-
 		};
 	},
 	mounted() {
 		this.ekiStampsDataStore.forEach((image) => {
-			// this.extractLocationData(image.src);
+			console.log('image src: ' + this.$store.state.baseURL + image.src);
+			// this.getExifrGPS(image.src);
 			this.getExifrGPS(this.$store.state.baseURL + image.src);
 		});
 	},
 	methods: {
+		getProjectTitle(projID) {
+			const project = this.experimentsDataStore.find(
+				(labExperiments) => labExperiments.id === projID
+			);
 
-		getProjectTitle(projID){
-			
-			const project = this.experimentsDataStore.find(labExperiments => labExperiments.id === projID);
-			
-			// console.log('find project index: ' + this.experimentsDataStore.indexOf(project)); 
-			
+			// console.log('find project index: ' + this.experimentsDataStore.indexOf(project));
+
 			return project.title;
-
 		},
 
 		// use exifr rather than exif-js to get GPS lat, long, date
@@ -157,12 +154,19 @@ export default {
 
 		// Use nominatim instead of opencage to reverse-geocode address
 		async fetchAddress(latitude, longitude) {
+			// 	url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=38.217422222222226&lon=140.97673055555555`;
 			const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
 
 			try {
 				const response = await fetch(url);
 				const data = await response.json();
 				// photo.address = response.data.display_name;
+				console.log(
+					'osm_id: ' + data.osm_id,
+					'neighbourhood: ' + data.address.neighbourhood,
+					'city: ' + data.address.city,
+					'province: ' + data.address.province
+				);
 				return data.display_name;
 			} catch (err) {
 				// error.value = 'Error fetching address information.';
@@ -179,26 +183,8 @@ export default {
 	padding: 0 0 40px 0;
 
 	.sidebar {
-
 		padding-top: 40px;
-
-		nav {
-			color: var(--color-border-soft);
-			border-bottom: 1px dotted var(--color-border-soft);
-			display: flex;
-			gap: 0 12px;
-			margin-bottom: 12px;
-			padding-bottom: 12px;
-			padding-left: 40px;
-			font-feature-settings: 'ss01' on, 'zero' on;
-
-			span {
-				color: var(--color-border-hover);
-			}
-			a:hover {
-				color: var(--color-heading);
-			}
-		}
+		padding-bottom: 80px;
 
 		nav + div {
 			padding: 0 40px;
@@ -211,7 +197,6 @@ export default {
 				padding-bottom: 36px;
 				padding-top: 36px;
 			}
-
 		}
 	}
 
@@ -319,10 +304,13 @@ export default {
 		}
 		.sidebar {
 			width: calc(42vw - 40px);
-			height: calc(100vw - 65px);
+			/* height: calc(100vw - 65px); */
 			position: fixed;
 			overflow-x: hidden;
 			border-right: 1px solid var(--color-border-soft);
+			height: 100%;
+			padding-bottom: 80px;
+			overflow-y: scroll;
 
 			.lede {
 				p {

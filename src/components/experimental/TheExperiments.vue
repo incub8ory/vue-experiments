@@ -6,12 +6,14 @@
 		</p>
 		<ul>
 			<li
-				v-for="experiment in labExperiments.slice().reverse()"
+				v-for="experiment in experimentsDataStore.slice().reverse()"
 				:key="experiment.id"
 			>
-				<router-link :to="this.baseURL + '/experimental/' + experiment.routeName">
+				<router-link
+					:to="this.$store.state.baseURL + '/experimental/' + experiment.routeName"
+				>
 					<span>{{ experiment.id }}</span>
-					<span>{{ experiment.linkText }}</span>
+					<span>{{ experiment.title }}</span>
 					<span>&rarr;</span>
 				</router-link>
 			</li>
@@ -20,24 +22,29 @@
 </template>
 <script>
 import ButtonLink from '../UI/ButtonLink.vue';
+import { mapGetters } from 'vuex';
+
 export default {
 	components: {
 		ButtonLink,
 	},
-	data() {
-		return {
-			baseURL: '/vue-experiments',
-			labExperiments: [
-				{ id: '01', routeName: '01', linkText: 'Shopping List' },
-				{ id: '02', routeName: '02', linkText: 'Tea Tasting' },
-				{ id: '03', routeName: '03', linkText: 'VueX' },
-				{ id: '04', routeName: '04', linkText: 'VueX*' },
-				{ id: '05', routeName: '05', linkText: 'Photo Locator' },
-				// { id: '06.1', routeName: '06.1', linkText: 'Eki Stamp Collector' },
-				{ id: '06', routeName: '06', linkText: 'Eki Stamps'},
-			],
-		};
+	computed: {
+		...mapGetters(['experimentsDataStore']),
 	},
+	// data() {
+	// 	return {
+	// 		baseURL: '/vue-experiments',
+	// 		labExperiments: [
+	// 			{ id: '01', routeName: '01', linkText: 'Shopping List' },
+	// 			{ id: '02', routeName: '02', linkText: 'Tea Tasting' },
+	// 			{ id: '03', routeName: '03', linkText: 'VueX' },
+	// 			{ id: '04', routeName: '04', linkText: 'VueX*' },
+	// 			{ id: '05', routeName: '05', linkText: 'Photo Locator' },
+	// 			// { id: '06.1', routeName: '06.1', linkText: 'Eki Stamp Collector' },
+	// 			{ id: '06', routeName: '06', linkText: 'Eki Stamps' },
+	// 		],
+	// 	};
+	// },
 };
 </script>
 <style scoped>

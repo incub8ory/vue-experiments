@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
 import HomeView from '../pages/HomeView.vue';
 import TeamsList from '../pages/TeamsList.vue';
@@ -18,7 +18,7 @@ import VueXTutorial from '@/components/experimental/VueXTutorial.vue';
 import PhotoLocationExtractor from '@/components/experimental/PhotoLocationExtractor.vue';
 import ExifPhotoViewer from '@/components/experimental/ExifPhotoViewer.vue';
 import EkiStamps from '@/components/experimental/EkiStamps.vue';
-
+import ManholeCovers from '@/components/experimental/ManholeCovers.vue';
 
 // const router = createRouter({
 //   history: createWebHistory(import.meta.env.BASE_URL),
@@ -132,6 +132,12 @@ const router = createRouter({
 			path: '/vue-experiments/experimental/06',
 			component: EkiStamps,
 			alias: '/experimental/06',
+		},
+		{
+			name: '07',
+			path: '/vue-experiments/experimental/07',
+			component: ManholeCovers,
+			alias: '/experimental/07',
 		},
 		{ path: '/404', component: NotFound },
 		{ path: '/:notFound(.*)', redirect: '/404' }, // catch all route

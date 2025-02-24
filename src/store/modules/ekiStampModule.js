@@ -19,7 +19,7 @@ export default {
 				},
 				{
 					id: '004',
-					title: 'Street Food Park',
+					title: 'SBB CFF FFS kiosk',
 					src: '/img/stamp/004.jpeg',
 				},
 				// Add more images here

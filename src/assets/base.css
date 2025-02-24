@@ -207,6 +207,40 @@ input[type='radio'] + label:hover,
 	color: var(--color-heading);
 }
 
+
+details {
+	padding-left: 32px;
+}
+
+details > summary {
+  list-style: none;
+  margin-left: -36px;
+  padding-left: 36px;
+  padding-top: 2px;
+  background: url(../assets/icon-plus-grey.svg) 0 0 no-repeat;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details > summary:hover {
+  cursor: pointer;
+  color: var(--color-heading);
+}
+
+summary,
+details
+ {
+  line-height: 20px;
+  margin-bottom: 8px;
+}
+
+details[open] > summary {
+  background: url(../assets/icon-minus-grey.svg) 0 0 no-repeat;
+}
+
+
 .mono {
 	font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
 		'Liberation Mono', monospace;
