@@ -2,7 +2,7 @@
 	<div class="main-container">
 		<header>
 			<p class="mono">
-				<RouterLink :to="this.$store.state.baseURL + { name: '02' }">Tea Tasting</RouterLink>
+				<RouterLink :to="{ name: '02' }">Tea Tasting</RouterLink>
 			</p>
 			<h2>{{ this.teaDataset[this.teaIndex].name }}</h2>
 		</header>
