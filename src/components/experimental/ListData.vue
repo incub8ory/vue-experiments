@@ -1,6 +1,20 @@
 <template>
 	<div class="shopping-list">
 		<!-- <ul> -->
+		<form @submit.prevent="addItem">
+			<div class="form-control">
+				<input
+					type="text"
+					ref="shoppingItemInput"
+					placeholder="Add a list item"
+					aria-label="list item input"
+					@focus="clearInput"
+				/>
+				<IconButton type="submit" size="icon-xl">
+					<template #icon><IconPlusCircle></IconPlusCircle></template>
+				</IconButton>
+			</div>
+		</form>
 		<TransitionGroup tag="ul" name="list-animation">
 			<li v-for="item in shoppingList" :key="item">
 				<input
@@ -14,27 +28,21 @@
 			</li>
 		</TransitionGroup>
 		<!-- </ul> -->
-		<form @submit.prevent="addItem">
-			<div class="form-control">
-				<input
-					type="text"
-					ref="shoppingItemInput"
-					aria-label="shopping item input"
-				/>
-				<BaseButton type="submit">Add item</BaseButton>
-			</div>
-		</form>
 	</div>
 </template>
 
 <script>
 import IconTrash from '../icons/IconTrash.vue';
-import BaseButton from '../UI/BaseButton.vue';
+// import BaseButton from '../UI/BaseButton.vue';
+import IconButton from '../UI/IconButton.vue';
+import IconPlusCircle from '../icons/IconPlusCircle.vue';
 
 export default {
 	components: {
 		IconTrash,
-		BaseButton,
+		IconButton,
+		IconPlusCircle,
+		// BaseButton,
 	},
 	data() {
 		return {
@@ -48,6 +56,7 @@ export default {
 	methods: {
 		clearInput() {
 			this.$refs.shoppingItemInput.value = '';
+			this.$refs.shoppingItemInput.placeholder = '';
 		},
 		addItem() {
 			const enteredListItem = this.$refs.shoppingItemInput.value.trim();
@@ -69,57 +78,74 @@ export default {
 
 <style scoped>
 .shopping-list {
-	padding: 40px 0;
-	display: flex;
-	flex-direction: row;
-	max-width: 960px;
-	margin: 0 auto;
-	align-items: flex-start;
-	gap: 40px;
+	ul,
+	form {
+		width: 100%;
+	}
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		padding: 0 0 120px 0;
+		/* background-color: var(--color-background); */
+
+		li {
+			margin: 0 0 8px 0;
+			padding: 0 0 8px 6px;
+			/* background-color: var(--color-background); */
+			border-bottom: 1px dotted var(--color-border);
+
+			&:hover {
+				cursor: pointer;
+				border-bottom: 1px solid var(--color-border);
+
+				label {
+					color: var(--color-heading);
+				}
+			}
+		}
+	}
+
+	input[type='text'] {
+		border: 0;
+	}
+	.form-control {
+		padding: 40px 12px 4px 28px;
+		margin-bottom: 32px;
+		border-bottom: 1px dotted var(--color-border);
+	}
 }
-ul,
-form {
-	width: 100%;
-	max-width: 480px;
-	/* margin: 0 auto; */
-}
-ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	padding: 12px 40px 120px 40px;
-	background-color: var(--color-background);
-}
-li {
-	margin: 0;
-	padding: 0;
-	padding-bottom: 8px;
-	margin-bottom: 8px;
-	/* display: block; */
-	/* width: 100%; */
-	background-color: var(--color-background);
-	border-bottom: 1px solid var(--color-border);
+
+input[type='checkbox'] + label {
+	padding-left: 8px;
 }
 input[type='checkbox']:checked + label {
 	text-decoration: line-through;
 }
-/* li svg {
-	width: 16px;
-	height: 16px;
-} */
-/* form {
-	padding: 40px 0;
-	border: 1px dotted #f00;
-} */
+
 .form-control {
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	gap: 4px;
+
+	&:hover {
+		border-bottom: 1px solid var(--color-text);
+	}
 }
-button {
+
+/* button {
 	text-wrap: nowrap;
-}
+} */
+
+/* 
+button.icon-xl svg {
+	width: 32px;
+	height: 32px;
+} 
+*/
+
 .list-animation-enter-from {
 	opacity: 0;
 	transform: translateY(-16px);
@@ -139,7 +165,7 @@ button {
 }
 .list-animation-leave-active {
 	/* transition: all 1s cubic-bezier(0.6, -0.28, 0.735, 0.045); */
-	transition: all .3s ease-in-out;
+	transition: all 0.3s ease-in-out;
 	position: absolute;
 }
 .list-animation-move {

@@ -1,5 +1,5 @@
 <template>
-	<button :class="size">
+	<button :class="size" >
 		<!-- <IconTrash></IconTrash> -->
 		<slot name="icon">
 			<IconXCircle></IconXCircle>
@@ -30,8 +30,8 @@ button .icon-base svg {
 	height: 16px;
 }
 .icon-lg svg {
-	width: 24px;
-	height: 24px;
+	width: 20px;
+	height: 20px;
 }
 .icon-xl svg {
 	width: 28px;
