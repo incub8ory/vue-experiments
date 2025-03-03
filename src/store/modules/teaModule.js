@@ -81,6 +81,11 @@ export default {
 							url: '/img/tea/002/002-3.jpg',
 							alt: '060 Yabukita Niyodogawa',
 						},
+						// {
+						// 	filename: '002-4.png',
+						// 	url: '/img/tea/002/002-4.png',
+						// 	alt: '060 Yabukita Niyodogawa',
+						// },
 					],
 					chartData: [
 						{ label: 'Sweetness', value: 4 },
@@ -454,12 +459,12 @@ export default {
 					id: '011',
 					name: 'Fukamushi Sencha',
 					seller: 'Kimikura',
-					manufacturer: 'Senchado Tokyo',
+					manufacturer: 'Maruyama Tea Products Corporation',
 					dateSampled: '2025-01-26',
 					description:
 						'Kakegawa deep-steamed green tea grown in Kakegawa, Shizuoka, Japan.',
 					notes:
-						'The tea has a dull, grey-green color and consists of small, chopped-up bits with a few whole leaves. Has a dominant roasted aroma reminiscent of hojicha but more astringent. Requires longer infusion time (2-3 minutes). Flavor is fairly bitter with a soft seaweed finish. Flavor profile lacks depth and balance overall with the rather astringent quality dominating the taste.',
+						'This tea is labeled as “kinjirushi bancha”. Bancha is harvested later than sencha and is considered a lower market grade. The tea has a dull, grey-green color and consists of small, chopped-up bits with a few whole leaves. Has a dominant roasted aroma. Requires longer infusion time (2-3 minutes). Flavor is slightly bitter with a soft seaweed finish. Flavor profile lacks depth and balance overall with the rather astringent quality dominating the taste.',
 					price: 19.9,
 					currency: '$',
 					weight: '200 grams',
