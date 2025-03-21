@@ -7,9 +7,18 @@
 				<h2>{{ this.getProjectTitle(this.projectID) }}</h2>
 				<p>
 					A catalog of {{ this.ekiStampsDataStore.length }} souvenir eki stamps
-					(駅スタンプ) collected over the years at train stations and other
-					locations in Japan
+					(駅スタンプ) collected at train stations in Japan
 				</p>
+				<details>
+					<summary>Technical Notes</summary>
+					This app uses
+					<a href="https://www.npmjs.com/package/exifr">exifr</a> to extract
+					EXIF data from the photos and
+					<a href="https://geoapify.com">Geoapify</a> to find the address from
+					the photo's latitude and longitude. An earlier version of the app used
+					<a href="https://github.com/exif-js/exif-js">exif-js</a> to extract
+					the GPS coordinates from the photos' EXIF data.
+				</details>
 			</div>
 		</div>
 		<div id="showcase">
@@ -26,11 +35,12 @@
 								{{ image.location.address }}
 							</p>
 						</header>
-						<img
+						<!-- <img
 							:src="this.$store.state.baseURL + image.src"
 							:alt="image.title"
 							class="photo"
-						/>
+						/> -->
+						<img :src="image.src" :alt="image.title" class="photo" />
 						<MapComponent
 							v-if="image.location"
 							:mapId="image.id"
@@ -85,9 +95,9 @@ export default {
 	},
 	mounted() {
 		this.ekiStampsDataStore.forEach((image) => {
-			console.log('image src: ' + this.$store.state.baseURL + image.src);
-			// this.getExifrGPS(image.src);
-			this.getExifrGPS(this.$store.state.baseURL + image.src);
+			// console.log('image src: ' + this.$store.state.baseURL + image.src);
+			this.getExifrGPS(image.src);
+			// this.getExifrGPS(this.$store.state.baseURL + image.src);
 		});
 	},
 	methods: {
@@ -103,24 +113,38 @@ export default {
 
 		// use exifr rather than exif-js to get GPS lat, long, date
 		async getExifrGPS(imageSrc) {
-			// const file = event.target.files[0];
-			// const image = this.images.find((img) => img.src === imageSrc);
 			const image = this.ekiStampsDataStore.find(
-				(img) => this.$store.state.baseURL + img.src === imageSrc
+				// (img) => this.$store.state.baseURL + img.src === imageSrc
+				(img) => img.src === imageSrc
 			);
 			const imgElement = new Image();
 
 			try {
 				const exifData = await exifr.gps(imageSrc);
-				const dateStamp = await exifr.parse(imageSrc, ['GPSDateStamp']);
+				const dateStamp = await exifr.parse(imageSrc, [
+					'GPSDateStamp',
+					'CreateDate',
+				]);
+
 				if (exifData && exifData.latitude && exifData.longitude) {
 					const latitude = exifData.latitude;
 					const longitude = exifData.longitude;
 
-					// console.log('dateStamp.GPSDateStamp: ' + dateStamp.GPSDateStamp);
-					image.date = this.convertExifDate(dateStamp.GPSDateStamp);
+					if (typeof dateStamp.GPSDateStamp === 'string') {
+						// GPSDateStamp returns a date object
+						image.date = this.convertExifDate(dateStamp.GPSDateStamp);
+						// image.date = dateStamp.GPSDateStamp;
+					} else {
+						// in case GPSDateStamp returns undefined
+						const dateString = JSON.stringify(dateStamp.CreateDate).substring(
+							1,
+							11
+						);
+						image.date = this.convertCreateDate(dateString);
+					}
 
 					this.fetchAddress(latitude, longitude)
+						// this.getAddress(latitude, longitude)
 						.then((address) => {
 							image.location = { latitude, longitude, address };
 							// console.log('exifr address: ' + image.location.address);
@@ -152,21 +176,59 @@ export default {
 			return formattedDate;
 		},
 
+		convertCreateDate(createDate) {
+			const dateParts = createDate.split('-');
+			const date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+
+			const options = { year: 'numeric', month: 'short', day: '2-digit' };
+			const formattedDate = date
+				.toLocaleDateString('en-GB', options)
+				.replace(',', '');
+
+			// console.log(formattedDate); // Output: "12 Mar 2024"
+			return formattedDate;
+		},
+
 		// Use nominatim instead of opencage to reverse-geocode address
 		async fetchAddress(latitude, longitude) {
 			// 	url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=38.217422222222226&lon=140.97673055555555`;
-			const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
+			// const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
+
+			// https://api.geoapify.com/v1/geocode/reverse?lat=33.5192&lon=130.5315388888889&format=json&apiKey=YOUR_API_KEY
+			const apiKey = import.meta.env.VITE_GEOAPIFY_API;
+			const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&format=json&apiKey=${apiKey}`;
 
 			try {
 				const response = await fetch(url);
 				const data = await response.json();
+
 				// photo.address = response.data.display_name;
-				console.log(
-					'osm_id: ' + data.osm_id,
-					'neighbourhood: ' + data.address.neighbourhood,
-					'city: ' + data.address.city,
-					'province: ' + data.address.province
-				);
+
+				// console.log(
+				// 	'osm_id: ' + data.osm_id,
+				// 	'neighbourhood: ' + data.address.neighbourhood,
+				// 	'city: ' + data.address.city,
+				// 	'province: ' + data.address.province
+				// );
+
+				// return data.display_name;
+				console.log('data: ' + data);
+				return data.results[0].formatted;
+			} catch (err) {
+				// error.value = 'Error fetching address information.';
+				console.error('Geocoding error:', error);
+				return 'Address not found';
+			}
+		},
+
+		async getAddress(latitude, longitude) {
+			// const apiKey = 'YOUR_OPENCAGE_API_KEY'; // Replace with your OpenCage API Key
+			const apiKey = import.meta.env.VITE_OPENCAGE_API;
+			const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
+
+			try {
+				const response = await fetch(url);
+				const data = await response.json();
 				return data.display_name;
 			} catch (err) {
 				// error.value = 'Error fetching address information.';
@@ -186,8 +248,9 @@ export default {
 		padding-top: 40px;
 		padding-bottom: 80px;
 
-		nav + div {
+		nav + .lede {
 			padding: 0 40px;
+			font-feature-settings: 'ss01' on, 'tnum' on, 'zero' on;
 
 			h2 {
 				color: var(--color-heading);
@@ -196,6 +259,51 @@ export default {
 				line-height: 40px;
 				padding-bottom: 36px;
 				padding-top: 36px;
+			}
+
+			p {
+				padding-bottom: 24px;
+			}
+
+			a {
+				color: var(--color-red-orange);
+			}
+		}
+
+		details {
+			/* font-family: 'HelveticaNowText', 'SF Pro', -apple-system, BlinkMacSystemFont,
+			'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+			'Segoe UI Emoji'; */
+			margin-top: 24px;
+			margin-bottom: 0;
+			padding-top: 12px;
+			padding-bottom: 8px;
+			border-top: 1px solid var(--color-border-soft);
+			border-bottom: 1px solid var(--color-border-soft);
+
+			& summary {
+				padding-right: 0;
+				font-size: 11px;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+			}
+
+			a {
+				color: var(--color-red-orange);
+			}
+		}
+
+		details + details {
+			margin-top: 0;
+			border-top: 0;
+		}
+
+		details[open] {
+			padding-bottom: 24px;
+			padding-right: 80px;
+
+			& summary {
+				margin-bottom: 12px;
 			}
 		}
 	}
