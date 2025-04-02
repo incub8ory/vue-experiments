@@ -17,8 +17,7 @@
 					This app uses
 					<a href="https://www.npmjs.com/package/exifr">Exifr</a> to extract the
 					date and GPS coordinates from the photos' EXIF data;
-					<a href="https://nominatim.org">Nominatim</a> (with OpenStreetMap) for
-					map geocoding to translate the GPS coordinates onto a map; and
+					<a href="https://geoapify.com">Geoapify</a> (with OpenStreetMap) to reverse geocode the address from the latitude/longitude; and
 					<a href="https://stadiamaps.com/stamen"> Stamen / Stadia maps</a> for
 					the beautiful, minimalist toner map display. <br /><br />
 					For editorial stylistic reasons, I also used
@@ -52,16 +51,16 @@
 					<article>
 						<header>
 							<p class="stamp-id subhead mono">N° {{ image.id }}</p>
-							<h3>{{ image.title }}</h3>
 							<p v-if="image.location" class="address">
 								{{ image.location.address }}
 							</p>
 						</header>
-						<img
+						<!-- <img
 							:src="this.$store.state.baseURL + image.src"
 							:alt="image.title"
 							class="photo"
-						/>
+						/> -->
+						<img :src="image.src" :alt="image.title" class="photo" />
 						<MapComponent
 							v-if="image.location"
 							:mapId="image.id"
@@ -120,8 +119,8 @@ export default {
 
 	mounted() {
 		this.manholeCoversDataStore.forEach((image) => {
-			// this.getExifrGPS(image.src);
-			this.getExifrGPS(this.$store.state.baseURL + image.src);
+			this.getExifrGPS(image.src);
+			// this.getExifrGPS(this.$store.state.baseURL + image.src);
 		});
 	},
 
@@ -146,7 +145,8 @@ export default {
 			// const file = event.target.files[0];
 			// const image = this.images.find((img) => img.src === imageSrc);
 			const image = this.manholeCoversDataStore.find(
-				(img) => this.$store.state.baseURL + img.src === imageSrc
+				// (img) => this.$store.state.baseURL + img.src === imageSrc
+				(img) => img.src === imageSrc
 			);
 			const imgElement = new Image();
 
@@ -231,39 +231,30 @@ export default {
 			return formattedDate;
 		},
 
-		// Use nominatim instead of opencage to reverse-geocode address
+		// Replace nominatim with geoapify to reverse-geocode address
 		async fetchAddress(latitude, longitude) {
 			// 	url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=38.217422222222226&lon=140.97673055555555`;
-			const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
+			// const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
+
+			// https://api.geoapify.com/v1/geocode/reverse?lat=33.5192&lon=130.5315388888889&format=json&apiKey=YOUR_API_KEY
+			const apiKey = import.meta.env.VITE_GEOAPIFY_API;
+			const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&format=json&apiKey=${apiKey}`;
 
 			try {
 				const response = await fetch(url);
 				const data = await response.json();
-				// photo.address = response.data.display_name;
-				console.log(
-					'osm_id: ' + data.osm_id,
-					'neighbourhood: ' + data.address.neighbourhood,
-					'city: ' + data.address.city,
-					'province: ' + data.address.province
-				);
-				// return data.display_name;
 
-				// https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=34.455894444444446&lon=133.97549444444445
-				if (!data.address.neighbourhood) {
-					if (data.address.city) {
-						return data.address.city + ', ' + data.address.province;
-					} else {
-						return data.address.town + ', ' + data.address.province;
-					}
-				} else {
-					return (
-						data.address.neighbourhood +
-						', ' +
-						data.address.city +
-						', ' +
-						data.address.province
-					);
-				}
+				// photo.address = response.data.display_name;
+
+				// console.log(
+				// 	'osm_id: ' + data.osm_id,
+				// 	'neighbourhood: ' + data.address.neighbourhood,
+				// 	'city: ' + data.address.city,
+				// 	'province: ' + data.address.province
+				// );
+
+				// return data.display_name;
+				return data.results[0].formatted;
 			} catch (err) {
 				// error.value = 'Error fetching address information.';
 				console.error('Geocoding error:', error);
@@ -379,19 +370,14 @@ export default {
 							color: var(--color-text);
 							line-height: 1;
 						}
-						h3 {
-							color: var(--color-heading);
-							font-size: 28px;
-							font-weight: 400;
-							letter-spacing: -0.02em;
-						}
 						.address {
 							color: var(--color-heading);
 							/* font-size: 14px; */
-							font-size: 22px;
+							font-size: 20px;
+							line-height: 1.2;
 							letter-spacing: -0.015em;
 							max-width: 66.67%;
-							padding: 4px 0 12px 0;
+							padding: 8px 0 12px 0;
 						}
 					}
 

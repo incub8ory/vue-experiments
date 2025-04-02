@@ -104,7 +104,7 @@ export default {
 				},
 				{
 					id: '003',
-					name: 'Satsukiyo Sencha',
+					name: '五月誉 (May Honor)',
 					seller: 'Haraguchien Fusuan',
 					manufacturer: 'Haraguchien Fusuan',
 					dateSampled: '2024-09-02',
@@ -119,17 +119,17 @@ export default {
 						{
 							filename: '003-1.jpg',
 							url: '/img/tea/003/003-1.jpg',
-							alt: 'Satsukiyo Sencha',
+							alt: '五月誉 (May Honor)',
 						},
 						{
 							filename: '003-2.jpg',
 							url: '/img/tea/003/003-2.jpg',
-							alt: 'Satsukiyo Sencha',
+							alt: '五月誉 (May Honor)',
 						},
 						{
 							filename: '003-3.jpg',
 							url: '/img/tea/003/003-3.jpg',
-							alt: 'Satsukiyo Sencha',
+							alt: '五月誉 (May Honor)',
 						},
 					],
 					chartData: [

@@ -6,21 +6,27 @@
 			<div class="lede">
 				<h2>{{ this.getProjectTitle(this.projectID) }}</h2>
 				<p>
-					A catalog of {{ this.ekiStampsDataStore.length }} souvenir eki stamps
-					(駅スタンプ) collected at train stations in Japan
+					This app serves as a digital companion to
+					{{ this.ekiStampsDataStore.length }} analog souvenir eki stamps
+					(駅スタンプ) individually collected at various train stations all over
+					Japan from {{ this.startYear
+					}}<span v-if="this.startYear !== this.endYear">
+						to {{ this.endYear }}</span
+					>.
 				</p>
 				<details>
 					<summary>Technical Notes</summary>
 					This app uses
 					<a href="https://www.npmjs.com/package/exifr">exifr</a> to extract
-					EXIF data from the photos and
-					<a href="https://geoapify.com">Geoapify</a> to find the address from
-					the photo's latitude and longitude. An earlier version of the app used
-					<a href="https://github.com/exif-js/exif-js">exif-js</a> to extract
-					the GPS coordinates from the photos' EXIF data.
+					EXIF data from the photos, replacing exif-js on an earlier version of
+					the app. I also replaced OpenCage, then Nominatim, with
+					<a href="https://geoapify.com">Geoapify</a> to handle reverse
+					geocoding to obtain the address from the latitude/longitude.
 				</details>
 			</div>
+			
 		</div>
+
 		<div id="showcase">
 			<ol>
 				<li
@@ -87,12 +93,15 @@ export default {
 	computed: {
 		...mapGetters(['ekiStampsDataStore', 'experimentsDataStore']),
 	},
+
 	data() {
 		return {
-			// For subnav and displaying proj title
-			projectID: '06',
+			projectID: '06', // For subnav and displaying proj title
+			startYear: null,
+			endYear: null,
 		};
 	},
+
 	mounted() {
 		this.ekiStampsDataStore.forEach((image) => {
 			// console.log('image src: ' + this.$store.state.baseURL + image.src);
@@ -109,6 +118,16 @@ export default {
 			// console.log('find project index: ' + this.experimentsDataStore.indexOf(project));
 
 			return project.title;
+		},
+
+		getYearRange(imgYear) {
+			if (imgYear < this.startYear || this.startYear === null) {
+				this.startYear = imgYear;
+			}
+			if (imgYear > this.startYear || this.endYear === null) {
+				this.endYear = imgYear;
+			}
+			// console.log('startYear: ' + this.startYear, 'endYear: ' + this.endYear);
 		},
 
 		// use exifr rather than exif-js to get GPS lat, long, date
@@ -140,7 +159,13 @@ export default {
 							1,
 							11
 						);
+
 						image.date = this.convertCreateDate(dateString);
+
+						// get img year from last 4 characters of date string
+						const imageYear = image.date.substring(image.date.length - 4);
+						this.getYearRange(imageYear);
+
 					}
 
 					this.fetchAddress(latitude, longitude)
@@ -189,9 +214,8 @@ export default {
 			return formattedDate;
 		},
 
-		// Use nominatim instead of opencage to reverse-geocode address
+		// Replace nominatim with geoapify to reverse-geocode address
 		async fetchAddress(latitude, longitude) {
-			// 	url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=38.217422222222226&lon=140.97673055555555`;
 			// const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
 
 			// https://api.geoapify.com/v1/geocode/reverse?lat=33.5192&lon=130.5315388888889&format=json&apiKey=YOUR_API_KEY
@@ -201,15 +225,6 @@ export default {
 			try {
 				const response = await fetch(url);
 				const data = await response.json();
-
-				// photo.address = response.data.display_name;
-
-				// console.log(
-				// 	'osm_id: ' + data.osm_id,
-				// 	'neighbourhood: ' + data.address.neighbourhood,
-				// 	'city: ' + data.address.city,
-				// 	'province: ' + data.address.province
-				// );
 
 				// return data.display_name;
 				console.log('data: ' + data);
@@ -232,7 +247,7 @@ export default {
 				return data.display_name;
 			} catch (err) {
 				// error.value = 'Error fetching address information.';
-				console.error('Geocoding error:', error);
+				console.error('Geocoding error:', err);
 				return 'Address not found';
 			}
 		},
