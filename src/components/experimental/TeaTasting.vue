@@ -31,9 +31,7 @@
 			>
 				<span class="eyebrow mono">{{ tea.seller }}</span>
 				<h3>
-					<router-link :to="this.$store.state.baseURL + '/experimental/02/' + tea.id">
-						{{ tea.name }}</router-link
-					>
+					<router-link :to="this.$store.state.baseURL + '/experimental/02/' + tea.id"> {{ tea.name }}</router-link>
 				</h3>
 				<SpiderChart :teaIndex="index"></SpiderChart>
 			</li>
@@ -70,7 +68,6 @@ export default {
 	// inject: ['teaData'],
 	data() {
 		return {
-			// baseURL: '/vue-experiments',
 			showDetails: false,
 			chartLabelsKey: [
 				'Sweetness',
@@ -222,6 +219,7 @@ export default {
 .main-container {
 	padding: 40px;
 }
+
 h2 {
 	font-family: 'Onest', 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
 		'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
@@ -294,7 +292,8 @@ ul {
 	margin: 0;
 	gap: 24px 12px;
 	flex-wrap: wrap;
-	width: calc(100vw - 80px);
+	width: calc(100vw -80px);
+	/* border: 1px solid #f00; */
 	/* justify-content: space-between; */
 }
 ul li {

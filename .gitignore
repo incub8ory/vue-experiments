@@ -3,5 +3,10 @@
 dist/
 fonts/
 
+# Firebase
+.firebase/
+.firebaserc
+firebase.json
+
 # Dependency directories
 node_modules/

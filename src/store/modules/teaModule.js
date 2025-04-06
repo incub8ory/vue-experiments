@@ -11,6 +11,7 @@ export default {
 				{
 					id: '001',
 					name: '012 Asatsuyu',
+					nameJpn: '',
 					seller: 'Senchado Tokyo',
 					manufacturer: 'Senchado Tokyo',
 					dateSampled: '2024-09-02',
@@ -20,6 +21,7 @@ export default {
 					price: 1960,
 					currency: '¥',
 					weight: '30 grams',
+					productURL: 'https://shop.senchado.jp/collections/ocha/products/1012',
 					imageFiles: [
 						{
 							filename: '001-1.jpg',
@@ -55,6 +57,7 @@ export default {
 				{
 					id: '002',
 					name: '060 Yabukita Niyodogawa',
+					nameJpn: '',
 					seller: 'Senchado Tokyo',
 					manufacturer: 'Senchado Tokyo',
 					dateSampled: '2024-11-08',
@@ -65,6 +68,8 @@ export default {
 					price: 1698,
 					currency: '¥',
 					weight: '30 grams',
+					productURL:
+						'https://shop.senchado.jp/collections/ocha/products/1296?variant=40441345769537',
 					imageFiles: [
 						{
 							filename: '002-1.jpg',
@@ -104,7 +109,8 @@ export default {
 				},
 				{
 					id: '003',
-					name: '五月誉 (May Honor)',
+					name: 'May Honor',
+					nameJpn: '五月誉',
 					seller: 'Haraguchien Fusuan',
 					manufacturer: 'Haraguchien Fusuan',
 					dateSampled: '2024-09-02',
@@ -115,21 +121,23 @@ export default {
 					price: 1080,
 					currency: '¥',
 					weight: '80 grams',
+					productURL:
+						'https://haraguchien.co.jp/products/茶匠の秘作-煎茶-五月誉',
 					imageFiles: [
 						{
 							filename: '003-1.jpg',
 							url: '/img/tea/003/003-1.jpg',
-							alt: '五月誉 (May Honor)',
+							alt: 'May Honor (五月誉)',
 						},
 						{
 							filename: '003-2.jpg',
 							url: '/img/tea/003/003-2.jpg',
-							alt: '五月誉 (May Honor)',
+							alt: 'May Honor (五月誉)',
 						},
 						{
 							filename: '003-3.jpg',
 							url: '/img/tea/003/003-3.jpg',
-							alt: '五月誉 (May Honor)',
+							alt: 'May Honor (五月誉)',
 						},
 					],
 					chartData: [
@@ -150,6 +158,7 @@ export default {
 				{
 					id: '004',
 					name: 'Yame Sencha AY-10A',
+					nameJpn: '八女煎茶 AY-10A',
 					seller: 'Haraguchien Fusuan',
 					manufacturer: 'Haraguchien Fusuan',
 					dateSampled: '2024-10-02',
@@ -160,21 +169,22 @@ export default {
 					price: 1080,
 					currency: '¥',
 					weight: '90 grams',
+					productURL: 'https://haraguchien.co.jp/products/八女煎茶-ay-10',
 					imageFiles: [
 						{
 							filename: '004-1.jpg',
 							url: '/img/tea/004/004-1.jpg',
-							alt: 'Yame Sencha AY-10A',
+							alt: 'Yame Sencha AY-10A (八女煎茶 AY-10A)',
 						},
 						{
 							filename: '004-2.jpg',
 							url: '/img/tea/004/004-2.jpg',
-							alt: 'Yame Sencha AY-10A',
+							alt: 'Yame Sencha AY-10A (八女煎茶 AY-10A)',
 						},
 						{
 							filename: '004-3.jpg',
 							url: '/img/tea/004/004-3.jpg',
-							alt: 'Yame Sencha AY-10A',
+							alt: 'Yame Sencha AY-10A (八女煎茶 AY-10A)',
 						},
 					],
 					chartData: [
@@ -195,6 +205,7 @@ export default {
 				{
 					id: '005',
 					name: 'Gyokuro Saemidori',
+					nameJpn: '',
 					seller: 'Tekoe',
 					manufacturer: 'Tekoe, Switzerland',
 					dateSampled: '2024-09-02',
@@ -205,6 +216,8 @@ export default {
 					price: 42.0,
 					currency: '$',
 					weight: '80 grams',
+					productURL:
+						'https://tekoe.com/product/gyokuro-saemidori-certifie-bio',
 					imageFiles: [
 						{
 							filename: '005-1.jpg',
@@ -230,6 +243,7 @@ export default {
 				{
 					id: '006',
 					name: 'Saemidori Kabuse',
+					nameJpn: '',
 					seller: 'Kimikura',
 					manufacturer: 'Maruyama Tea',
 					dateSampled: '2024-11-02',
@@ -240,6 +254,7 @@ export default {
 					price: 17.9,
 					currency: '$',
 					weight: '70 grams',
+					productURL: '',
 					imageFiles: [
 						{
 							filename: '006-1.jpg',
@@ -275,6 +290,7 @@ export default {
 				{
 					id: '007',
 					name: '038 Yamano Ibuki',
+					nameJpn: '',
 					seller: 'Senchado Tokyo',
 					manufacturer: 'Senchado Tokyo',
 					dateSampled: '2024-12-02',
@@ -285,6 +301,8 @@ export default {
 					price: 1829,
 					currency: '¥',
 					weight: '30 grams',
+					productURL:
+						'https://shop.senchado.jp/collections/ocha/products/1038?variant=39449528434753',
 					imageFiles: [
 						{
 							filename: '007-1.jpg',
@@ -320,6 +338,7 @@ export default {
 				{
 					id: '008',
 					name: '044 Uji Midori',
+					nameJpn: '',
 					seller: 'Senchado Tokyo',
 					manufacturer: 'Senchado Tokyo',
 					dateSampled: '2025-01-12', // yyyy-mm-dd
@@ -330,6 +349,8 @@ export default {
 					price: 1829,
 					currency: '¥',
 					weight: '30 grams',
+					productURL:
+						'https://shop.senchado.jp/collections/ocha/products/1044?variant=39449530368065',
 					imageFiles: [
 						{
 							filename: '008-1.jpg',
@@ -366,6 +387,7 @@ export default {
 				{
 					id: '009',
 					name: 'Strawberry Tea',
+					nameJpn: '',
 					seller: 'Senchado Tokyo',
 					manufacturer: 'Senchado Tokyo',
 					dateSampled: '2025-02-16', // yyyy-mm-dd
@@ -376,6 +398,7 @@ export default {
 					price: 1829,
 					currency: '¥',
 					weight: '30 grams',
+					productURL: 'https://shop.senchado.jp/collections/ocha/products/1222',
 					imageFiles: [
 						{
 							filename: '009-1.jpg',
@@ -412,6 +435,7 @@ export default {
 				{
 					id: '010',
 					name: 'Cherry Leaf (Sakura) Sencha',
+					nameJpn: '',
 					seller: 'Senchado Tokyo',
 					manufacturer: 'Senchado Tokyo',
 					dateSampled: '2024-03-28', //
@@ -422,6 +446,8 @@ export default {
 					price: 1698,
 					currency: '¥',
 					weight: '30 grams',
+					productURL:
+						'https://shop.senchado.jp/collections/ocha/products/1066?variant=39703774003265',
 					imageFiles: [
 						{
 							filename: '010-1.jpg',
@@ -458,6 +484,7 @@ export default {
 				{
 					id: '011',
 					name: 'Fukamushi Sencha',
+					nameJpn: '',
 					seller: 'Kimikura',
 					manufacturer: 'Maruyama Tea Products Corporation',
 					dateSampled: '2025-01-26',
@@ -468,6 +495,7 @@ export default {
 					price: 19.9,
 					currency: '$',
 					weight: '200 grams',
+					productURL: '',
 					imageFiles: [
 						{
 							filename: '011-1.jpg',

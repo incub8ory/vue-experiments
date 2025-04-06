@@ -4,7 +4,14 @@
 			<p class="mono">
 				<RouterLink :to="{ name: '02' }">Tea Tasting</RouterLink>
 			</p>
-			<h2>{{ this.teaDataset[this.teaIndex].name }}</h2>
+			<h2>
+				{{ this.teaDataset[this.teaIndex].name
+				}}<span
+					v-if="this.teaDataset[this.teaIndex].nameJpn"
+					class="japanese-name"
+					>{{ this.teaDataset[this.teaIndex].nameJpn }}</span
+				>
+			</h2>
 		</header>
 
 		<nav>
@@ -107,7 +114,7 @@
 							</p>
 							<ul class="gallery">
 								<li v-for="image in this.teaDataset[this.teaIndex].imageFiles">
-									<img :src="this.$store.state.baseURL + `${image.url}`" :alt="image.alt" />
+									<img :src="`${image.url}`" :alt="image.alt" />
 								</li>
 							</ul>
 						</div>
@@ -136,6 +143,16 @@
 								<tr>
 									<th>Manufacturer</th>
 									<td>{{ this.teaDataset[this.teaIndex].manufacturer }}</td>
+								</tr>
+								<tr v-if="this.teaDataset[this.teaIndex].productURL">
+									<th>Webpage</th>
+									<td>
+										<a
+											:href="`${this.teaDataset[this.teaIndex].productURL}`"
+											target="_blank"
+											>{{ this.teaDataset[this.teaIndex].name }}</a
+										>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -225,7 +242,7 @@ export default {
 				this.teaIndex--;
 			}
 			this.teaId = this.teaDataset[this.teaIndex].id;
-			this.$router.push(this.$store.state.baseURL +'/experimental/02/' + this.teaId);
+			this.$router.push(this.$store.state.baseURL + '/experimental/02/' + this.teaId);
 		},
 		addKeyEventHandlers() {
 			window.addEventListener('keydown', this.keyDownHandler);
@@ -292,7 +309,15 @@ header h2 {
 	font-weight: 800;
 	letter-spacing: -0.02em;
 	line-height: 1;
+	max-width: 640px;
 	/* padding-bottom: 16px; */
+
+	& .japanese-name {
+		display: block;
+		font-weight: 400;
+		font-size: 42px;
+		padding-top: 4px;
+	}
 }
 nav {
 	margin-bottom: 24px;
